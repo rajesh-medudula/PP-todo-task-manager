@@ -1,9 +1,18 @@
-import { currentStates } from "../application/application-state.js"
+export const setItem = (key, value) => {
+  if (!key) {
+    return "Invalid key!";
+  }
 
-export const saveCurrentState = (currentStates) => {
-  localStorage.setItem("currentStates", JSON.stringify(currentStates))  
+  localStorage.setItem(key, JSON.stringify(value))  
 }
 
-export const getCurrentState = () => {
-  return JSON.parse(localStorage.getItem("currentStates")) || "";
+export const getItem = (key) => {
+  const value = JSON.parse(localStorage.getItem("currentStates")) || null;
+
+  return value;
 }
+
+export const removeItem = (key) => {
+  localStorage.removeItem(key);
+}
+

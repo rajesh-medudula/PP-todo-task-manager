@@ -12,15 +12,21 @@
   --primary: #2563E8;
   --secondary: #6B7280;
   --background: #FFFFFF;
-  --surface: #F8FAFC;
+  --surface: #e5e5e6;
   --background-black: #111111;
   --text-black: #111111;
   --text-white: #FFFFFF;
+  --text-light: #6B7280;
   --success: #16A34A;
   --error: #DC2626;
   --warning: #D97706;
   --border: #E5E7EB;
   --light-blue: #DBEAFE;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+  --shadow-lg: -2px 3px 20px 0px rgba(0, 0, 0, 0.10);
 
   /* typography */
   --font-family: "Inter", sans-serif;
@@ -68,8 +74,19 @@ body {
   background-color: var(--background);
 }
 
+input,
+textarea,
+select {
+  width: 100%;
+  min-height: var(--control-height-md);
+  padding: 0 var(--space-3);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+}
+
 #app {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -82,6 +99,12 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
   margin-bottom: 1rem;
+  font-size: var(--text-sm);
+}
+
+label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
 }
 
 /* 4. Media Defaults */

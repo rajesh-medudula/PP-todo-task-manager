@@ -1,3 +1,6 @@
+// current page state
+import { currentStates } from "./application/application-state.js";
+
 // from app state subscribe
 import { subscribe } from "./application/application-state.js";
 
@@ -10,8 +13,12 @@ const app = document.querySelector("#app");
 // render function
 export const renderApp = () => {
   app.innerHTML = "";
-
-  app.append(renderOnboarding());
+  
+  const globalPage = currentStates.globalState.state;
+  
+  if (globalPage === "onboarding") {
+    app.append(renderOnboarding()); 
+  }
 }
 
 // render based on events

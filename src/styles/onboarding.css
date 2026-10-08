@@ -1,3 +1,4 @@
+/* onboarding */
 .onboarding {
   display: flex;
   flex-direction: column;
@@ -7,18 +8,22 @@
 }
 
 .onboarding__container {
+  width: 90%;
   padding: var(--space-2);
 }
 
-.onboarding__container--intro {
-  margin: auto;
-}
-
+/* icons / images */
 .onboarding__icon {
   display: inline-block;
   margin: var(--space-1);
 }
 
+/* text */
+.onboarding__description {
+  color: var(--text-light);
+}
+
+/* buttons */
 .onboarding__primary-button {
   width: 90%;
   height: var(--control-height-lg);
@@ -31,13 +36,143 @@
   border: none;
   border-radius: var(--radius-lg);
   margin-block: var(--space-8);
+  color: var(--text-light);
+  background-color: var(--surface);
+  cursor: block;
+}
+
+.onboarding__primary-button--active {
   color: var(--text-white);
   background-color: var(--background-black);
+  cursor: pointer;
+}
+
+.onboarding__secondary-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: var(--space-2);
+  font-size: var(--text-base);
+  margin: var(--space-6);
+  border: none;
+  background-color: transparent;
+  font-weight: var(--weight-medium);
+  margin-right: auto;
   cursor: pointer;
 }
 
 .onboarding__primary-button svg {
   display: inline-block;
   vertical-align: middle;
+}
+
+.onboarding__secondary-button > svg {
+  display: inline-block;
+}
+
+/* profile container */
+.onboarding__profile {
+  background-color: var(--background-black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-full);
+  border: var(--border-width) solid var(--background-black);
+  cursor: pointer;
+  position: relative;
+}
+
+/* onboarding inputs */
+.onboarding__label {
+  display: block; 
+}
+
+.onboarding__input {
+  margin-block: var(--space-1);
+  font-size: var(--text-sm);
+}
+/* ********************** */
+/* onboarding intro */
+.onboarding__container--intro {
+  margin: auto;
+}
+
+.onboarding__icon--intro > svg {
+  width: 50px;
+  height: auto;
+}
+
+/* ********************** */
+/* onboarding profile */
+.onboarding__container--profile {
+  margin-bottom: auto;
+}
+
+.onboarding__title--profile {
+  font-size: 1.8rem;
+  line-height: 1.5rem;
+}
+
+.onboarding__profile-wrapper {
+  position: relative;
+}
+
+.onboarding__profile--container {
+  width: 95px;
+  height: 95px;
+  margin-bottom: var(--space-8);
+}
+
+.onboarding__profile--container::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background-black);
+  background-image:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='M12 5v14'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--background);
+}
+
+.onboarding__profile--container > svg {
+  width: 40px;
+  height: auto;
+}
+
+.svg-avatar {
+  pointer-events: none;
+}
+
+/* avatar menu */
+.onboarding__menu {
+  display: none;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: var(--space-4);
+  position: absolute;
+  padding: var(--space-3);
+  bottom: -80px;
+  left: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  background-color: var(--background);
+}
+
+.onboarding__menu--active {
+  display: flex;
+}
+
+.onboarding__profile--container-mini {
+  width: 45px;
+  height: 45px;
 }
 
