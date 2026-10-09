@@ -6,10 +6,18 @@ import { getNavigationAsset } from "../../assets/svg/navigation.js";
 import { toggleSidebar } from "./header.js";
 
 //  sidebar
+export const createSideBarOverlay = () => {
+  const overlay = document.createElement("div");
+
+  overlay.className = "sidebar-overlay";
+
+  return overlay;
+}
+
 export const createSideBar = () => {
   const aSide = document.createElement("aside");
 
-  aSide.className = "sidebar sidebar--active"
+  aSide.className = "sidebar"
 
   aSide.innerHTML = `
   <div class="sidebar__logo-container">
@@ -54,6 +62,7 @@ export const createSideBar = () => {
   </nav>
   `;
 
+    // sidebar toggle close btn event
   const sidebarCloseBtn = aSide.querySelector(".sidebar__close-btn");
 
   sidebarCloseBtn.addEventListener("click", toggleSidebar);

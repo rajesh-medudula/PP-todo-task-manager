@@ -6,6 +6,8 @@ import { subscribe } from "./application/application-state.js";
 import { renderOnboarding } from "./pages/onboarding.js";
 // header and sidebar
 import { createHeader } from "./components/navigation/header.js";
+// overlay sidebar
+import { createSideBarOverlay } from "./components/navigation/sidebar.js";
 import { createSideBar } from "./components/navigation/sidebar.js";
 // task management page
 
@@ -25,8 +27,8 @@ export const renderApp = () => {
   if (globalPage === "taskManagement") {
     app.append(
       createHeader(),
+      createSideBarOverlay(),
       createSideBar(),
-      
     ); 
   }
 }

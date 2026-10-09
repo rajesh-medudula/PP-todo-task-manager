@@ -30,16 +30,17 @@ export const createHeader = () => {
   </nav>
   `
 
+  // hamburger event
   const hamburger = header.querySelector(".header__hamburger");
-
   hamburger.addEventListener("click", toggleSidebar)
   
   return header;
 }
 
-
+// toggle sidebar
 export const toggleSidebar = () => {
   const sidebar = document.querySelector(".sidebar");
-
+  const sidebarOverlay = document.querySelector(".sidebar-overlay");
   sidebar.classList.toggle("sidebar--active");
+  sidebarOverlay.classList.toggle("sidebar-overlay--active");
 }
