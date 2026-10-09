@@ -15,3 +15,7 @@ export const isUserExist = () => {
     false;
   }
 }
+
+export const getUserData = () => {
+  return getItem("userProfile");
+}

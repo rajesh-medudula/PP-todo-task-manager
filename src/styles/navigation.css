@@ -1,0 +1,131 @@
+header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  border-bottom: var(--border-width) solid var(--border-light);
+  z-index: 1;
+}
+
+.header__nav {
+  width: 100%;
+}
+
+.header__nav-list {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.header__nav-item {
+  padding: var(--space-1);
+  border-radius: var(--radius-full);
+}
+
+.header__nav-item:first-child {
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.header__nav-item:last-child {
+  background-color: var(--background-black);
+}
+
+.header__nav-item:last-child svg {
+  stroke: var(--text-white);
+}
+
+/* sidebar */
+.sidebar {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  position: fixed;
+  left: 0;
+  padding: var(--space-1);
+  border-right: var(--border-width) solid var(--border-light);
+  background-color: var(--background-white);
+  z-index: 2;
+  visibility: hidden;
+  transform: translateX(-100%);
+  transition: 
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    visibility 0s linear 0.4s;
+}
+
+.sidebar--active {
+  visibility: visible;
+  transform: translate(0);
+
+   transition: 
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+    visibility 0s linear 0s; 
+}
+
+.sidebar__nav {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sidebar__nav-list {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-2);
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.sidebar__nav-link {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+}
+
+.sidebar__nav-link:hover {
+  background-color: var(--tab-hover);
+}
+
+.sidebar__nav-app-version {
+  padding: var(--space-2);
+  color: var(--text-light);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+/* logo container */
+.sidebar__logo-container {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: var(--space-2);
+  color: var(--text-white);
+  background-color: var(--background-black);
+  border-radius: var(--radius-lg);
+}
+
+.sidebar__logo-container svg {
+  stroke: var(--text-white);
+}
+
+.sidebar__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-right: auto;
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+}
+
+.sidebar__close-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

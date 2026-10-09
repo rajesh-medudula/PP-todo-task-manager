@@ -7,7 +7,7 @@ export const setItem = (key, value) => {
 }
 
 export const getItem = (key) => {
-  const value = JSON.parse(localStorage.getItem("currentStates")) || null;
+  const value = JSON.parse(localStorage.getItem(key)) || null;
 
   return value;
 }

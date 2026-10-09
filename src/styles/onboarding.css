@@ -52,7 +52,7 @@
   border-radius: var(--radius-lg);
   margin-block: var(--space-8);
   color: var(--text-light);
-  background-color: var(--surface);
+  background-color: var(--surface-grey);
   cursor: block;
 }
 
@@ -77,13 +77,17 @@
   cursor: pointer;
 }
 
-.onboarding__primary-button svg {
+.onboarding__primary-button svg, .onboarding__secondary-button svg {
   display: inline-block;
   vertical-align: middle;
 }
 
-.onboarding__secondary-button > svg {
-  display: inline-block;
+.onboarding__primary-button svg {
+  stroke: var(--text-white);
+}
+
+.onboarding__secondary-button svg {
+  stroke: var(--text-black);
 }
 
 /* profile container */
@@ -163,12 +167,13 @@
   background-position: center;
   background-size: 1rem;
   border-radius: var(--radius-full);
-  border: 2px solid var(--background);
+  border: 2px solid var(--border-white);
 }
 
 .onboarding__profile--container > svg {
   width: 40px;
   height: auto;
+  stroke: var(--text-white);
 }
 
 .svg-avatar {
@@ -187,7 +192,11 @@
   left: 30px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  background-color: var(--background);
+  background-color: var(--background-white);
+}
+
+.onboarding__menu--profile svg {
+  stroke: var(--text-white);
 }
 
 .onboarding__menu--active {
