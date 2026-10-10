@@ -1,3 +1,6 @@
+// storage
+import { getItem } from "../../data/storage-manager.js";
+
 // assets
 import { getGlobalAsset } from "../../assets/svg/global.js";
 import { getNavigationAsset } from "../../assets/svg/navigation.js";
@@ -10,7 +13,10 @@ export const createSideBarOverlay = () => {
   const overlay = document.createElement("div");
 
   overlay.className = "sidebar-overlay";
-
+  
+  if (getItem("currentStates").globalState.sidebar) {
+    overlay.classList.add("sidebar-overlay--active");
+  }
   return overlay;
 }
 
@@ -18,6 +24,10 @@ export const createSideBar = () => {
   const aSide = document.createElement("aside");
 
   aSide.className = "sidebar"
+
+  if (getItem("currentStates").globalState.sidebar) {
+    aSide.classList.add("sidebar--active");
+  }
 
   aSide.innerHTML = `
   <div class="sidebar__logo-container">
@@ -58,14 +68,19 @@ export const createSideBar = () => {
       </li>
     </ul>
 
-    <span class="sidebar__nav-app-version">Version 1.0</span>
+    <span class="sidebar__nav-app-version">V1.0</span>
   </nav>
   `;
 
     // sidebar toggle close btn event
   const sidebarCloseBtn = aSide.querySelector(".sidebar__close-btn");
 
-  sidebarCloseBtn.addEventListener("click", toggleSidebar);
+  sidebarCloseBtn.addEventListener("click", () => {
+    const sidebar = document.querySelector(".sidebar");
+    const sidebarOverlay = document.querySelector(".sidebar-overlay");
+    
+    toggleSidebar(sidebar, sidebarOverlay);
+  });
 
   return aSide;
 }

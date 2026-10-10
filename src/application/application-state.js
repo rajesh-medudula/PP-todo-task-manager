@@ -4,6 +4,7 @@ import { getItem } from "../data/storage-manager.js";
 export let currentStates = getItem("currentStates") || {
   globalState: {
     state: "onboarding",
+    sidebar: false,
   },
   onboarding: {
     step: "intro",

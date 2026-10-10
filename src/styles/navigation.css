@@ -8,6 +8,7 @@ header {
   top: 0;
   border-bottom: var(--border-width) solid var(--border-light);
   z-index: 1;
+  background-color: var(--background-white);
 }
 
 .header__nav {
@@ -99,7 +100,7 @@ header {
 .sidebar__nav-link {
   display: flex;
   gap: var(--space-3);
-  padding: var(--space-4);
+  padding: var(--space-2);
   border-radius: var(--radius-lg);
   cursor: pointer;
 }
@@ -143,4 +144,43 @@ header {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-overlay {
+    display: none;
+  }
+  
+  .sidebar {
+    width: fit-content;
+    visibility: visible;
+    transform: translateX(0);
+    padding: 0;
+    z-index: 0;
+  }
+
+  .sidebar__logo-container {
+    display: none;
+  }
+
+  .sidebar__close-btn {
+    visibility: hidden;
+    display: none;
+  }
+
+  .sidebar{
+    margin-top: 50px;
+  }
+
+  .sidebar__nav-app-version {
+    margin-bottom: 50px;
+  }
+
+  .sidebar .sidebar__nav-link span {
+    display: none;
+  }
+
+  .sidebar--active .sidebar__nav-link span {
+    display: inline-block;
+  }
 }

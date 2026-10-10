@@ -1,3 +1,7 @@
+// storage
+import { getItem } from "../../data/storage-manager.js";
+import { setCurrentPageState } from "../../application/application-state.js";
+
 // assets
 import { getNavigationAsset } from "../../assets/svg/navigation.js";
 
@@ -32,15 +36,25 @@ export const createHeader = () => {
 
   // hamburger event
   const hamburger = header.querySelector(".header__hamburger");
-  hamburger.addEventListener("click", toggleSidebar)
+  hamburger.addEventListener("click", () => {
+    const sidebar = document.querySelector(".sidebar");
+    const sidebarOverlay = document.querySelector(".sidebar-overlay");
+    
+    toggleSidebar(sidebar, sidebarOverlay);
+  })
   
   return header;
 }
 
+
 // toggle sidebar
-export const toggleSidebar = () => {
-  const sidebar = document.querySelector(".sidebar");
-  const sidebarOverlay = document.querySelector(".sidebar-overlay");
-  sidebar.classList.toggle("sidebar--active");
-  sidebarOverlay.classList.toggle("sidebar-overlay--active");
+export const toggleSidebar = (sidebar, sidebarOverlay) => {
+  if (sidebar && sidebarOverlay) {
+    sidebar.classList.toggle("sidebar--active");
+    sidebarOverlay.classList.toggle("sidebar-overlay--active");
+  }
+
+  let isSidebarActive = getItem("currentStates").globalState.sidebar;
+  setCurrentPageState("globalState", {"sidebar": !isSidebarActive});
+  isSidebarActive = getItem("currentStates").globalState.sidebar;
 }
