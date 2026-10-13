@@ -1,0 +1,87 @@
+/* task main */
+.task-management {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: var(--header-height);
+  padding: var(--space-2);
+  position: relative;
+}
+
+
+/* user greet */
+.user-greet {
+  padding: var(--space-1);
+}
+
+.user-greet__name {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+}
+
+/* task views (today, tmr..) */
+.views {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-1);
+  background-color: var(--surface-grey);
+  border-radius: var(--radius-sm);
+}
+
+@media (min-width: 320px) {
+  .views {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  } 
+}
+
+.views__btn {
+  padding-inline: var(--space-1);
+  padding-block: var(--space-2);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-sm);
+  color: var(--text-black);
+  font-weight: var(--weight-medium);
+}
+
+.views__btn:hover {
+  background-color: var(--tab-hover);
+}
+
+.views__btn--active {
+  background-color: var(--tab-active);
+  color: var(--text-white);
+}
+
+.views__btn--active:hover {
+  background-color: var(--tab-active);
+}
+
+/* create btn */
+.tasks__create-btn {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: var(--space-4);
+  color: var(--text-white);
+  border-radius: var(--radius-full);
+  background-color: var(--background-black);
+}
+
+.tasks__create-btn:hover {
+  background-color: var(--button-hover);
+}
+
+.tasks__create-btn > svg {
+  stroke: var(--text-white);
+}
+
+/* task list / tasks */
+.tasks {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

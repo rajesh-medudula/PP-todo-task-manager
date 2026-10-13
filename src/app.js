@@ -10,6 +10,7 @@ import { createHeader } from "./components/navigation/header.js";
 import { createSideBarOverlay } from "./components/navigation/sidebar.js";
 import { createSideBar } from "./components/navigation/sidebar.js";
 // task management page
+import { createTaskManagement } from "./pages/task-management.js";
 
 // from index.html
 const app = document.querySelector("#app");
@@ -29,6 +30,7 @@ export const renderApp = () => {
       createHeader(),
       createSideBarOverlay(),
       createSideBar(),
+      createTaskManagement(),
     ); 
   }
 }

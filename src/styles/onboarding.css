@@ -51,9 +51,12 @@
   border: none;
   border-radius: var(--radius-lg);
   margin-block: var(--space-8);
-  color: var(--text-light);
   background-color: var(--surface-grey);
-  cursor: block;
+  cursor: not-allowed;
+}
+
+.onboarding__primary-button--active:hover {
+  background-color: var(--button-hover);
 }
 
 .onboarding__primary-button--active {

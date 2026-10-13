@@ -52,6 +52,12 @@ export const toggleSidebar = (sidebar, sidebarOverlay) => {
   if (sidebar && sidebarOverlay) {
     sidebar.classList.toggle("sidebar--active");
     sidebarOverlay.classList.toggle("sidebar-overlay--active");
+
+    const mainContent = document.querySelector(".main-content");
+
+    if (mainContent) {
+      mainContent.classList.toggle("main-content--sidebar-active")
+    }
   }
 
   let isSidebarActive = getItem("currentStates").globalState.sidebar;
