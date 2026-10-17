@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  align-items: center;
   margin-top: var(--header-height);
   padding: var(--space-2);
   position: relative;
@@ -11,7 +12,9 @@
 
 /* user greet */
 .user-greet {
+  display: flex;
   padding: var(--space-1);
+  align-self: self-start;
 }
 
 .user-greet__name {
@@ -21,6 +24,7 @@
 
 /* task views (today, tmr..) */
 .views {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-2);
@@ -84,4 +88,75 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+/* task create modal */
+.modal-overlay--creation {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay--creation--active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal-shell--creation {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  margin-bottom: 0;
+  height: 80%;
+  padding-top: var(--space-8);
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.modal-overlay--creation--active .modal-shell--creation {
+  transform: translateY(0);
+}
+
+.modal-overlay--creation--close  .modal-shell--creation {
+  transform: translateY(100%);
+}
+
+.form-creation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.form-creation section {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+/* inputs form creation */
+.form-creation__description {
+  min-height: 100px;
+  resize: none;
+}
+
+/* buttons form creation*/
+.form-creation > .form-creation__button-container {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+}
+
+.form-creation__button-container button {
+  font-weight: var(--weight-semibold);
+  padding: var(--space-3);
+  background-color: var(--surface-grey);
+  border: var(--border-width-1) solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.form-creation__button-container .form-creation__create-btn {
+  background-color: var(--background-black);
+  color: var(--text-white);
 }

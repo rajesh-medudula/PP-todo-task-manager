@@ -1,5 +1,6 @@
 import { getGlobalAsset } from "../../assets/svg/global.js";
 
+// create empty state (list)
 export const createEmptyState = () => {
   const emptySection = document.createElement("section");
   
@@ -21,5 +22,17 @@ export const createEmptyState = () => {
   </div>
   `;
 
+  const createBtn = emptySection.querySelector(".empty__create-btn");
+
+  
+  createBtn.addEventListener("click", () => {
+    const overlay = document.querySelector(".modal-overlay--creation");
+    overlay.classList.add("modal-overlay--creation--active");
+  });
+
+
   return emptySection;
 }
+
+
+

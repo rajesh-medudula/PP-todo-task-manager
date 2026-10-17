@@ -59,7 +59,7 @@ export const createOnboardingProfile = () => {
     <div class="onboarding__text-wrapper onboarding__text-wrapper--profile">
       <div class="onboarding__profile-wrapper">
         <button class="onboarding__profile onboarding__profile--container" aria-label="select user profile picture">
-          ${ getItem("currentStates").onboarding.avatarSelected || getOnboardingAsset("default-profile-picture")}
+          ${ getItem("appData").state.onboarding.avatarSelected || getOnboardingAsset("default-profile-picture")}
         </button>
         <span class="onboarding__menu onboarding__menu--profile"></span>
       </div>
@@ -116,7 +116,7 @@ const toggleCreateBtn = (input) => {
 
 const userInputNickname = onboarding.querySelector(".onboarding__input--nickname");
 // setting local value else ""
-userInputNickname.value = getItem("currentStates").onboarding.nickname || "";
+userInputNickname.value = getItem("appData").state.onboarding.nickname || "";
 
 toggleCreateBtn(userInputNickname.value);
 
@@ -132,8 +132,8 @@ userInputNickname.addEventListener("input", (event) => {
 
 // create listener
 createBtn.addEventListener("click", () => {
-  const nickname = getItem("currentStates").onboarding.nickname;
-  const avatar = getItem("currentStates").onboarding.avatarSelected;
+  const nickname = getItem("appData").state.onboarding.nickname;
+  const avatar = getItem("appData").state.onboarding.avatarSelected;
   createUserProfile(nickname, avatar);
   setGlobalState("taskManagement");
 });

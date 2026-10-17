@@ -1,5 +1,5 @@
 // current page state
-import { currentStates } from "./application/application-state.js";
+import { appData } from "./application/application-state.js";
 // from app state subscribe
 import { subscribe } from "./application/application-state.js";
 // onboarding from pages.
@@ -19,7 +19,7 @@ const app = document.querySelector("#app");
 export const renderApp = () => {
   app.innerHTML = "";
   
-  const globalPage = currentStates.globalState.state;
+  const globalPage = appData.state.globalState.state;
   
   if (globalPage === "onboarding") {
     app.append(renderOnboarding()); 

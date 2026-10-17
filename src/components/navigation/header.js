@@ -11,7 +11,7 @@ import { getUserData } from "../../data/profile-persistence.js";
 // header
 export const createHeader = () => {
   const header = document.createElement("header");
-
+  
   header.innerHTML = `
   <nav class="header__nav">
     <div class="header__nav-list">
@@ -60,7 +60,7 @@ export const toggleSidebar = (sidebar, sidebarOverlay) => {
     }
   }
 
-  let isSidebarActive = getItem("currentStates").globalState.sidebar;
+  let isSidebarActive = getItem("appData").state.globalState.sidebar;
   setCurrentPageState("globalState", {"sidebar": !isSidebarActive});
-  isSidebarActive = getItem("currentStates").globalState.sidebar;
+  isSidebarActive = getItem("appData").state.globalState.sidebar;
 }

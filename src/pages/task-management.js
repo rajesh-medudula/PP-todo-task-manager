@@ -7,6 +7,7 @@ import { getUserData } from "../data/profile-persistence.js";
 // components
 import { createTasksList } from "../components/task/task-list.js";
 import { createViewSelection } from "../components/task/task-view-selector.js";
+import { createTaskCreationModal } from "../components/task/task-creation-modal.js";
 
 const taskManagement = document.createElement("main");
 
@@ -21,6 +22,7 @@ export const createTaskManagement = () => {
   taskManagement.append(createGreet());
   taskManagement.append(createViewSelection());
   taskManagement.append(createTasksList());
+  taskManagement.append(createTaskCreationModal());
 
   return taskManagement;
 }

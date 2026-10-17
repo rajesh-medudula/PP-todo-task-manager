@@ -1,18 +1,25 @@
-import { setItem } from "../data/storage-manager.js";
-import { getItem } from "../data/storage-manager.js";
+import { setItem, getItem } from "../data/storage-manager.js";
 
-export let currentStates = getItem("currentStates") || {
-  globalState: {
-    state: "onboarding",
-    sidebar: false,
+import { categories } from "../data/category-persistence.js";
+
+export let appData = getItem("appData") || {
+  state: {
+    globalState: {
+      state: "onboarding",
+      sidebar: false,
+    },
+    onboarding: {
+      step: "intro",
+      avatarSelected: null,
+      nickname: ""
+    },
+    taskManagement: {
+      step: "list",
+    }
   },
-  onboarding: {
-    step: "intro",
-    avatarSelected: null,
-    nickname: ""
-  },
-  taskManagement: {
-    step: "list",
+  data: {
+   tasks: [],
+   categories: categories,
   }
 };
 
@@ -28,29 +35,27 @@ export const notify = () => {
 }
 // set current page state no render
 export const setCurrentPageState = (page, state) => {
-  currentStates[page] = {...currentStates[page], ...state};
+  appData["state"][page] = {...appData["state"][page], ...state};
   
-  setItem("currentStates", currentStates);
+  setItem("appData", appData);
 }
 // set current states and render app.js
 export const setCurrentState = (page, state) => {
-  currentStates[page] = {...currentStates[page], ...state};
+  appData["state"][page] = {...appData["state"][page], ...state};
   
-  setItem("currentStates", currentStates);
- 
+  setItem("appData", appData);
   notify();
 }
 // set global page
 export const setGlobalState = (page) => {
-  currentStates.globalState.state = page;
+  appData.state.globalState.state = page;
 
-  setItem("currentStates", currentStates);
-
+  setItem("appData", appData);
   notify();
 }
 
-console.log(currentStates)
+console.log(appData)
 
 // saves default current states to local storage
 
-setItem("currentStates", currentStates);
+setItem("appData", appData);

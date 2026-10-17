@@ -14,7 +14,7 @@ export const createSideBarOverlay = () => {
 
   overlay.className = "sidebar-overlay";
   
-  if (getItem("currentStates").globalState.sidebar) {
+  if (getItem("appData").state.globalState.sidebar) {
     overlay.classList.add("sidebar-overlay--active");
   }
   return overlay;
@@ -25,7 +25,7 @@ export const createSideBar = () => {
 
   aSide.className = "sidebar"
 
-  if (getItem("currentStates").globalState.sidebar) {
+  if (getItem("appData").state.globalState.sidebar) {
     aSide.classList.add("sidebar--active");
   }
 
