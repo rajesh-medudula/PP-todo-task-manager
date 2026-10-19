@@ -20,19 +20,21 @@ export const createModalShell = ({title, content, onClose, variant}) => {
   heading.textContent = title;
 
   const closeBtn = document.createElement("button");
-  closeBtn.className = `modal-shell__close-btn modal-shell__close--${variant}`;
-  closeBtn.innerHTML = getGlobalAsset("close-icon");
-  
-  
-  closeBtn.addEventListener("click", () => {  
+    closeBtn.className = `modal-shell__close-btn modal-shell__close--${variant}`;
+    closeBtn.innerHTML = getGlobalAsset("close-icon");
+
+    closeBtn.addEventListener("click", () => {  
     onClose(overlay);
   });
-
   // main content by developer
   const body = document.createElement("div");
   body.className = `modal-shell__content modal-shell__content--${variant}`;
 
-  header.append(heading, closeBtn);
+  if (onClose !== null) {
+    header.append(heading, closeBtn);
+  } else {
+    header.append(heading);
+  }
   body.append(content);
   modal.append(header, body);
   overlay.append(modal);

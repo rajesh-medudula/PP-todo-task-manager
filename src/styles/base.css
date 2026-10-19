@@ -39,7 +39,7 @@
   /* typography */
   --font-family: "Inter", sans-serif;
 
-  --text-sm: 14px;
+  --text-sm: 13px;
   --text-base: 16px;
   --text-lg: 18px;
   --text-xl: 24px;
@@ -135,6 +135,10 @@ p {
   font-size: var(--text-sm);
 }
 
+span {
+  font-size: var(--text-sm);
+}
+
 /* 4. Media Defaults */
 img, picture, video, canvas, svg {
   display: block;
@@ -145,12 +149,14 @@ button {
   border: none;
   background-color: transparent;
   cursor: pointer;
+  font-weight: var(--weight-medium);
 }
 
 svg {
   display: inline-block;
   stroke: var(--text-black);
   vertical-align: middle;
+  pointer-events: none;
 }
 
 @media (min-width: 1024px) {

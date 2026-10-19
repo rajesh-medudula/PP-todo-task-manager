@@ -1,3 +1,5 @@
+
+import { notify, setCurrentState } from "../../application/application-state.js";
 // shared shell
 import { createModalShell } from "../shared/modal-shell.js";
 // category
@@ -10,6 +12,8 @@ import { createPriority } from "../task-organization/priority-selector.js";
 import { createTask } from "../../application/task.js";
 
 const closeModal = (overlay) => {
+  setCurrentState("taskManagement", {step: "list"});
+  
   overlay.classList.add("modal-overlay--creation--close");
   setTimeout(() => {
     overlay.classList.remove("modal-overlay--creation--active", "modal-overlay--creation--close")
@@ -19,6 +23,8 @@ const closeModal = (overlay) => {
 export const createTaskCreationModal = () => {
   const form = document.createElement("form");
   form.className = "form-creation";
+
+  form.innerHTML = "";
   
   // label for title
   const labelTitle = document.createElement("label");
@@ -101,8 +107,6 @@ export const createTaskCreationModal = () => {
       closeModal(overlay);
     }
   });
-  
-  
 
   return createModalShell({
     title: "New Task",

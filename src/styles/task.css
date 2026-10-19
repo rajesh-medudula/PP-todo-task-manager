@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+  gap: var(--space-2);
   align-items: center;
   margin-top: var(--header-height);
   padding: var(--space-2);
@@ -85,7 +86,9 @@
 
 /* task list / tasks */
 .tasks {
+  width: 100%;
   display: flex;
+  gap: var(--space-2);
   flex-direction: column;
   flex: 1;
 }
@@ -159,4 +162,145 @@
 .form-creation__button-container .form-creation__create-btn {
   background-color: var(--background-black);
   color: var(--text-white);
+}
+
+/* task card */
+.task-card {
+  padding: var(--space-2) var(--space-3);
+  display: grid;
+  column-gap: var(--space-4);
+  place-items: start;
+  grid-template-columns: 30px 1fr 30px;
+  grid-template-rows: auto auto;
+  border: var(--border-width-1) solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.task-card--completed {
+  color: var(--text-light);
+  background-color: var(--surface-grey);
+}
+
+.task-card svg {
+  width: var(--control-width-min);
+}
+
+.task-card__checkbox, .task-card__btn {
+  grid-row: 1/-1
+}
+
+.task-card__title {
+  grid-column: 2;
+  font-weight: var(--weight-semibold);
+}
+
+.task-card--completed .task-card__title {
+  text-decoration: line-through;
+}
+
+.task-card__props {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-3);
+  grid-column: 2;
+  grid-row: 2;
+  color: var(--text-light);
+}
+
+.task-card__props svg {
+  stroke: var(--text-light);
+}
+
+.task-card__btn {
+  justify-self: flex-end;
+}
+
+.task-card__props-item--category {
+  background-color: var(--surface-grey);
+  padding-inline: var(--space-1);
+  border-radius: var(--radius-full);
+}
+
+/* checkbox */
+.task-card input[type="checkbox"] {
+  appearance: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: var(--radius-full);
+  display: flex;
+  justify-content: center;
+}
+
+.task-card input[type="checkbox"]::before {
+  content: "";
+  width: 25px;
+  height: 25px;
+  border: var(--border-width) solid var(--text-light);
+  border-radius: var(--radius-full);
+}
+
+.task-card input[type="checkbox"]:checked::before {
+ content: "";
+ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+ background-size: var(--control-width-min);
+ background-position: center;
+ background-repeat: no-repeat;
+ background-color: var(--background-black);
+}
+
+/* delete modal */
+.modal-shell--task-delete {
+  width: 95%;
+  margin: auto;
+  border-radius: var(--radius-md);
+}
+
+.task-delete {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: auto auto;
+  row-gap: var(--space-3);
+  column-gap: var(--space-2);
+}
+
+.task-delete__description {
+  grid-column: 1/-1;
+  color: var(--text-light);
+}
+
+.task-delete__cancel-btn {
+  grid-column: 2;
+}
+
+.task-delete__delete-btn {
+  grid-column: 3;
+}
+
+.task-delete svg {
+  width: var(--control-width-min);
+}
+
+.task-delete button {
+  background-color: var(--surface-grey);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.task-delete__cancel-btn {
+  border: var(--border-width-1) solid var(--border-light);
+}
+
+.task-delete .task-delete__delete-btn {
+  background-color: var(--background-black);
+  color: var(--text-white);
+}
+
+.task-delete .task-delete__delete-btn > svg {
+  stroke: var(--text-white);
 }

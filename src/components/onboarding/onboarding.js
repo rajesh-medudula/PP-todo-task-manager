@@ -133,8 +133,9 @@ userInputNickname.addEventListener("input", (event) => {
 // create listener
 createBtn.addEventListener("click", () => {
   const nickname = getItem("appData").state.onboarding.nickname;
-  const avatar = getItem("appData").state.onboarding.avatarSelected;
+  const avatar = getItem("appData").state.onboarding.avatarSelected || getOnboardingAsset("default-profile-picture");
   createUserProfile(nickname, avatar);
+  
   setGlobalState("taskManagement");
 });
 

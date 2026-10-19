@@ -1,5 +1,4 @@
-// current page state
-import { appData } from "./application/application-state.js";
+import { getItem } from "./data/storage-manager.js";
 // from app state subscribe
 import { subscribe } from "./application/application-state.js";
 // onboarding from pages.
@@ -17,6 +16,8 @@ const app = document.querySelector("#app");
 
 // render function
 export const renderApp = () => {
+  const appData = getItem("appData");
+  
   app.innerHTML = "";
   
   const globalPage = appData.state.globalState.state;

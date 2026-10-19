@@ -3,7 +3,7 @@ import { getGlobalAsset } from "../../assets/svg/global.js";
 export const createPriority = () => {
   const body = document.createElement("section");
   body.className = "priority";
-   
+  
   body.innerHTML = `
   <label class="priority__label" for="priority-list">Priority</label>
   <div class="priority__list" id="priority-list">

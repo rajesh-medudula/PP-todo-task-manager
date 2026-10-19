@@ -8,6 +8,9 @@ const body = document.createElement("section");
 body.className = "category-selection";
 
 const createCategoryList = () => {
+
+  body.innerHTML = "";
+
   const list = document.createElement("div");
   list.className = "category-selection__list";
   list.setAttribute("data-id", "2");

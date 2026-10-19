@@ -27,7 +27,7 @@ export const createHeader = () => {
       </button>
       <button class="header__nav-item">
         <a class="header__nav-link">
-          ${getUserData().avatar}
+          ${getUserData()?.avatar}
         </a>
       </button>
     </div>

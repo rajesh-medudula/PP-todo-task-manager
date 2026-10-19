@@ -4,6 +4,8 @@ const body = document.createElement("section");
 body.className = "dueDate";
 
 export const createDueDate = () => {
+  body.innerHTML = "";
+  
   const today = new Date();
 
   const weekday = today.toLocaleDateString("en-US", {weekday: "short"});

@@ -1,3 +1,4 @@
+import { setCurrentState } from "../../application/application-state.js";
 import { getGlobalAsset } from "../../assets/svg/global.js";
 
 // create empty state (list)
@@ -26,8 +27,12 @@ export const createEmptyState = () => {
 
   
   createBtn.addEventListener("click", () => {
-    const overlay = document.querySelector(".modal-overlay--creation");
-    overlay.classList.add("modal-overlay--creation--active");
+    setCurrentState("taskManagement", {step: "create"});
+      
+    setTimeout(() => {
+      const overlay = document.querySelector(".modal-overlay--creation");
+      overlay.classList.add("modal-overlay--creation--active");
+    }, 50);
   });
 
 
