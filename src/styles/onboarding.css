@@ -55,14 +55,14 @@
   cursor: not-allowed;
 }
 
-.onboarding__primary-button--active:hover {
-  background-color: var(--button-hover);
-}
-
 .onboarding__primary-button--active {
   color: var(--text-white);
   background-color: var(--background-black);
   cursor: pointer;
+}
+
+.onboarding__primary-button--active:hover {
+  background-color: var(--button-hover);
 }
 
 .onboarding__secondary-button {
@@ -118,6 +118,7 @@
 
 
 /* ********************** */
+
 /* onboarding intro */
 .onboarding__container--intro {
   margin: auto;
@@ -129,6 +130,7 @@
 }
 
 /* ********************** */
+
 /* onboarding profile */
 .onboarding__text-wrapper--profile {
   justify-content: flex-start;
@@ -212,7 +214,7 @@
 }
 
 
-@media (min-width: 768px) { 
+@media (width >= 768px) { 
   .onboarding__title {
     font-size: var(--text-3xl);
   }

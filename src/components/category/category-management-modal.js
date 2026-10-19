@@ -1,9 +1,11 @@
+// modal template
 import { createModalShell } from "../shared/modal-shell.js";
 
+// creates category management modal.
 export const createCategoryManagement = () => {
   const body = document.createElement("div");
   body.className = "category-Management";
-
+  
   body.innerHTML = `
   <div class="category-management__text-container">
     <label class="category-management__title" for="category-input">Name</label>

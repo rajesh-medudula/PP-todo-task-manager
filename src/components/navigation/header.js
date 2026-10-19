@@ -1,53 +1,48 @@
-// storage
-import { getItem } from "../../data/storage-manager.js";
-import { setCurrentPageState } from "../../application/application-state.js";
-
+// app -> data
+import { user, setSidebarState } from "../../application/navigation.js";
 // assets
-import { getNavigationAsset } from "../../assets/svg/navigation.js";
+import { getGlobalAsset } from "../../assets/svg/global.js";
 
-// user data
-import { getUserData } from "../../data/profile-persistence.js";
-
-// header
+// header component
 export const createHeader = () => {
   const header = document.createElement("header");
-  
+
   header.innerHTML = `
   <nav class="header__nav">
     <div class="header__nav-list">
       <button class="header__nav-item header__hamburger">
         <a class="header__nav-link">
-          ${getNavigationAsset("hamburger-icon")}
+          ${getGlobalAsset("bars-icon")}
         </a>
       </button>
       <button class="header__nav-item">  
         <a class="header__nav-link">
-          ${getNavigationAsset("search-icon")}
+          ${getGlobalAsset("search-icon")}
         </a>
       </button>
       <button class="header__nav-item">
         <a class="header__nav-link">
-          ${getUserData()?.avatar}
+          ${user("avatar")}
         </a>
       </button>
     </div>
   </nav>
-  `
+  `;
 
-  // hamburger event
+  // hamburger event on click.
   const hamburger = header.querySelector(".header__hamburger");
+
   hamburger.addEventListener("click", () => {
     const sidebar = document.querySelector(".sidebar");
     const sidebarOverlay = document.querySelector(".sidebar-overlay");
-    
+
     toggleSidebar(sidebar, sidebarOverlay);
-  })
-  
+  });
+
   return header;
-}
+};
 
-
-// toggle sidebar
+// toggle sidebar.
 export const toggleSidebar = (sidebar, sidebarOverlay) => {
   if (sidebar && sidebarOverlay) {
     sidebar.classList.toggle("sidebar--active");
@@ -56,11 +51,10 @@ export const toggleSidebar = (sidebar, sidebarOverlay) => {
     const mainContent = document.querySelector(".main-content");
 
     if (mainContent) {
-      mainContent.classList.toggle("main-content--sidebar-active")
+      mainContent.classList.toggle("main-content--sidebar-active");
     }
   }
 
-  let isSidebarActive = getItem("appData").state.globalState.sidebar;
-  setCurrentPageState("globalState", {"sidebar": !isSidebarActive});
-  isSidebarActive = getItem("appData").state.globalState.sidebar;
-}
+  // sets sidebar active / inactive.
+  setSidebarState();
+};

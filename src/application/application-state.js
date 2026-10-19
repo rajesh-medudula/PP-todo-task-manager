@@ -1,5 +1,5 @@
+// data
 import { setItem, getItem } from "../data/storage-manager.js";
-import { getGlobalAsset } from "../assets/svg/global.js";
 import { categories } from "../data/category-persistence.js";
 
 export const defaultAppData = {
@@ -40,10 +40,6 @@ export const defaultAppData = {
 
 export let appData = getItem("appData") || defaultAppData;
 
-export const getPriorityIcon = (iconRef) => {
-  return getGlobalAsset(iconRef);
-}
-
 const listeners = [];
 
 // get app.js render functions
@@ -56,7 +52,7 @@ export const notify = () => {
   listeners.forEach(listener => listener());
 };
 
-// set current page state no render
+// set current page state no render manual render
 export const setCurrentPageState = (page, state) => {
   const appData = getItem("appData");
   if (!appData.state[page]) appData.state[page] = {};
@@ -65,7 +61,7 @@ export const setCurrentPageState = (page, state) => {
   setItem("appData", appData);
 };
 
-// set current states and render app.js
+// set current states and render app.js auto render
 export const setCurrentState = (page, state) => {
   setCurrentPageState(page, state);
   notify();

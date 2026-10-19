@@ -10,42 +10,35 @@
 :root {
   /* Colors */
   --secondary: #6B7280;
-  --background-white: #FFFFFF;
-  --background-black: #111111;
+  --background-white: #FFF;
+  --background-black: #111;
   --surface-grey: #F5F5F5;
-
-  --text-black: #111111;
-  --text-white: #FFFFFF;
+  --text-black: #111;
+  --text-white: #FFF;
   --text-light: #525252;
-  
   --success: #16A34A;
   --error: #DC2626;
   --warning: #D97706;
-  
-  --border-black: #111111;
-  --border-white: #FFFFFF;
+  --border-black: #111;
+  --border-white: #FFF;
   --border-light: #d6d6d8;
-
   --button-hover: #757575;
-
   --tab-hover: #dbdbdd;
-  --tab-active: #111111;
+  --tab-active: #111;
 
   /* shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
-  --shadow-lg: -2px 3px 20px 0px rgba(0, 0, 0, 0.10);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow-md: 0 4px 6px rgb(0 0 0 / 8%);
+  --shadow-lg: -2px 3px 20px 0px rgb(0 0 0 / 10%);
 
   /* typography */
   --font-family: "Inter", sans-serif;
-
   --text-sm: 13px;
   --text-base: 16px;
   --text-lg: 18px;
   --text-xl: 24px;
   --text-2xl: 32px;
   --text-3xl: 40px;
-
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
@@ -159,7 +152,7 @@ svg {
   pointer-events: none;
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .main-content {
     margin-left: var(--sidebar-width-collapsed);
     width: calc(100% - var(--sidebar-width-collapsed));

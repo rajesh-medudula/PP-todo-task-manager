@@ -1,11 +1,12 @@
-// storage
+// storage.
 import { getItem, setItem } from "./storage-manager.js";
 
+// get tasks from local.
 export const getTasks = () => {
   return getItem("appData").data.tasks || [];
 }
 
-// save task
+// save task to local.
 export const saveTask = (task) => {
   const appData = getItem("appData");
   
@@ -18,13 +19,13 @@ export const saveTask = (task) => {
 
     return true;
   } catch (error) {
-    console.error("Failed to save task");
+    console.error("Failed to save task", error);
   }
 
   return false;
 }
 
-// task inner data
+// task inner data local.
 export const updateTaskState = (tasks) => {
   try {
     const appData = getItem("appData");
@@ -33,14 +34,13 @@ export const updateTaskState = (tasks) => {
 
     return true;
   } catch (error) {
-    console.log("Failed to save task state");
+    console.log("Failed to save task state", error);
   }
 
   return false;
 }
 
-
-
+// save task id to delete to local.
 export const getTaskIdToDelete = () => {
   const id = getItem("appData").state.taskManagement.currentTaskId;
 

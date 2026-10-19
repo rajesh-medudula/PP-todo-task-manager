@@ -1,22 +1,25 @@
-// app state
-import {setCurrentState, setCurrentPageState, setGlobalState } from "../../application/application-state.js";
-
-// images
-import { getOnboardingAsset } from "../../assets/svg/onboarding.js";
-// profile pics
-import { profileAvatars } from "../../assets/svg/avatars.js";
-import { getItem } from "../../data/storage-manager.js";
-
+// app onboarding
+import {
+  userOnboardingData,
+  setOnboardingPageState,
+  setOnboardingStep,
+  userSelectedAvatar,
+  currentNickname,
+} from "../../application/onboarding.js";
 // app profile
 import { createUserProfile } from "../../application/profile.js";
+// assets
+import {
+  getGlobalAsset,
+  getProfileAvatar,
+  profileAvatars,
+} from "../../assets/svg/global.js";
 
-// Onboarding intro.
+// Onboarding intro components.
 const onboarding = document.createElement("main");
+onboarding.className = "onboarding";
 
 export const createOnboardingIntro = () => {
-
-  onboarding.className = "onboarding";
-
   onboarding.innerHTML = `
 <div class="onboarding__container onboarding__container--intro">
     <div class="onboarding__text-wrapper">
@@ -29,37 +32,35 @@ export const createOnboardingIntro = () => {
     
     <button class="onboarding__primary-button onboarding__primary-button--active" id="onboarding__primary-button--next">
       Next
-      ${getOnboardingAsset("right-arrow-icon")}
+      ${getGlobalAsset("right-arrow-icon")}
     </button>
 </div>`;
 
-// onboarding intro next btn
-const onboardingNextBtn = onboarding.querySelector("#onboarding__primary-button--next");
+  // onboarding intro next btn
+  const onboardingNextBtn = onboarding.querySelector(
+    "#onboarding__primary-button--next",
+  );
 
-onboardingNextBtn.addEventListener("click", () => {
-  setCurrentState("onboarding", {step: "profile"});
-})
+  onboardingNextBtn.addEventListener("click", () => {
+    setOnboardingStep({step: "profile"});
+  });
 
-return onboarding;
-}
-
+  return onboarding;
+};
 
 // onboarding profile setup.
 export const createOnboardingProfile = () => {
-
-  onboarding.className = "onboarding";
-
   onboarding.innerHTML = `  
   <div class="onboarding__container onboarding__container--profile">
     <button class="onboarding__secondary-button onboarding__secondary-button--back-profile">
-      ${getOnboardingAsset("left-arrow-icon")}  
+      ${getGlobalAsset("left-arrow-icon")}  
       Back
     </button>
   
     <div class="onboarding__text-wrapper onboarding__text-wrapper--profile">
       <div class="onboarding__profile-wrapper">
         <button class="onboarding__profile onboarding__profile--container" aria-label="select user profile picture">
-          ${ getItem("appData").state.onboarding.avatarSelected || getOnboardingAsset("default-profile-picture")}
+          ${userSelectedAvatar() || getProfileAvatar("default")}
         </button>
         <span class="onboarding__menu onboarding__menu--profile"></span>
       </div>
@@ -79,98 +80,110 @@ export const createOnboardingProfile = () => {
   </div>
 `;
 
-// go back
-const backBtn = onboarding.querySelector(".onboarding__secondary-button--back-profile");
-backBtn.addEventListener("click", () => {
-  setCurrentState("onboarding", {step: "intro"});
-})
+  // go back
+  const backBtn = onboarding.querySelector(
+    ".onboarding__secondary-button--back-profile",
+  );
 
-// profile selection render
-const onboardingProfileMenu = onboarding.querySelector('.onboarding__menu--profile');
-onboardingProfileMenu.innerHTML = createProfileAvatars();
+  backBtn.addEventListener("click", () => {
+    setOnboardingStep({step: "intro"});
+  });
 
-const avatarWrapper = onboarding.querySelector('.onboarding__profile-wrapper');
+  // profile selection render
+  const onboardingProfileMenu = onboarding.querySelector(
+    ".onboarding__menu--profile",
+  );
+  onboardingProfileMenu.innerHTML = createProfileAvatars();
 
-avatarWrapper.addEventListener("click", (event) => {
-  const clickedAvatar = event.target?.dataset?.avatarName || "";
-  
-  setAvatar(clickedAvatar);
-})
+  // avatar selection listener
+  const avatarWrapper = onboarding.querySelector(
+    ".onboarding__profile-wrapper",
+  );
+  avatarWrapper.addEventListener("click", (event) => {
+    const selectedAvatar = event.target?.dataset?.avatarName || "";
 
-const avatarProfileContainer = onboarding.querySelector(".onboarding__profile--container");
-avatarProfileContainer.addEventListener("click", toggleAvatarMenu);
+    setAvatar(selectedAvatar);
+  });
 
-// make create btn active when input is not empty
-const createBtn = onboarding.querySelector(".onboarding__primary-button--create");
+  // toggle avatar selection menu
+  const avatarProfileContainer = onboarding.querySelector(
+    ".onboarding__profile--container",
+  );
+  avatarProfileContainer.addEventListener("click", toggleAvatarMenu);
 
-// enable / disable create btn based on input
-const toggleCreateBtn = (input) => {
-  if (input.trim().length > 0) {
-    createBtn.disabled = false;
-    createBtn.classList.add("onboarding__primary-button--active");
-  } else {
-    createBtn.disabled = true;
-    createBtn.classList.remove("onboarding__primary-button--active");
-  }
-}
+  // make create btn active when input is not empty enable/disable create btn based on input
+  const createBtn = onboarding.querySelector(
+    ".onboarding__primary-button--create",
+  );
+  const toggleCreateBtn = (input) => {
+    if (input.trim().length > 0) {
+      createBtn.disabled = false;
+      createBtn.classList.add("onboarding__primary-button--active");
+    } else {
+      createBtn.disabled = true;
+      createBtn.classList.remove("onboarding__primary-button--active");
+    }
+  };
 
-const userInputNickname = onboarding.querySelector(".onboarding__input--nickname");
-// setting local value else ""
-userInputNickname.value = getItem("appData").state.onboarding.nickname || "";
+  const userInputNickname = onboarding.querySelector(
+    ".onboarding__input--nickname",
+  );
+  // setting local value when page refreshed.
+  userInputNickname.value = currentNickname();
+  // toggle create button based on input.
+  toggleCreateBtn(userInputNickname.value);
 
-toggleCreateBtn(userInputNickname.value);
+  userInputNickname.addEventListener("input", (event) => {
+    const userNickname = event.target.value.trim();
+    // set current page values f(key, value);
+    setOnboardingPageState({"nickname": userNickname});
 
-userInputNickname.addEventListener("input", (event) => {
-  const userNickname = event.target.value.trim();
-  // saving to local
-  setCurrentPageState("onboarding", {"nickname": userNickname});
+    toggleCreateBtn(userNickname);
+  });
 
-  toggleCreateBtn(userNickname);
-});
+  // create listener
+  createBtn.addEventListener("click", () => {
+    const nickname = userOnboardingData().nickname;
+    const avatar = userOnboardingData().avatar || getProfileAvatar("default");
 
+    createUserProfile(nickname, avatar);
+  });
 
-
-// create listener
-createBtn.addEventListener("click", () => {
-  const nickname = getItem("appData").state.onboarding.nickname;
-  const avatar = getItem("appData").state.onboarding.avatarSelected || getOnboardingAsset("default-profile-picture");
-  createUserProfile(nickname, avatar);
-  
-  setGlobalState("taskManagement");
-});
-
-return onboarding;
-}
+  return onboarding;
+};
 
 // generate available avatars user can select
 const createProfileAvatars = () => {
   let html = ``;
 
   for (const profileAvatar in profileAvatars) {
-    html+= `
+    html += `
     <button class="onboarding__profile onboarding__profile--container-mini" data-avatar-name="${profileAvatar}">
-     ${profileAvatars[profileAvatar].replace('<svg ', '<svg class="svg-avatar"')}
+     ${profileAvatars[profileAvatar].replace("<svg ", '<svg class="svg-avatar"')}
     </button>
-    `
+    `;
   }
 
   return html;
-}
+};
 
 // set main profile contain avatar.
 const setAvatar = (avatar) => {
-  const onboardingAvatar = document.querySelector(".onboarding__profile--container");
+  const onboardingAvatar = document.querySelector(
+    ".onboarding__profile--container",
+  );
 
   if (avatar) {
     onboardingAvatar.innerHTML = profileAvatars[avatar];
-    setCurrentPageState("onboarding", {"avatarSelected": profileAvatars[avatar]})
+    setOnboardingPageState({"avatarSelected": profileAvatars[avatar]});
+
     toggleAvatarMenu();
   }
-}
+};
 
 // close avatar selection menu once selected
 const toggleAvatarMenu = () => {
   const avatarMenu = document.querySelector(".onboarding__menu--profile");
 
   avatarMenu.classList.toggle("onboarding__menu--active");
-}
+};

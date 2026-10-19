@@ -1,4 +1,4 @@
-// check is user have account
+// check user have account
 import { isUserExist } from "../data/profile-persistence.js";
 
 // current page state

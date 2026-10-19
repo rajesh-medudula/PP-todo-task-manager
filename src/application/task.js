@@ -4,6 +4,38 @@ import { getTasks } from "../data/task-persistence.js";
 import { getItem } from "../data/storage-manager.js";
 import { setCurrentState, notify } from "./application-state.js";
 
+
+import { getCategoryList } from "../data/category-persistence.js";
+import { categorizeDate } from "../domain/task-date-rules.js";
+
+// set taskManagement step
+export const setTaskManagementStep = (object) => {
+ setCurrentState("taskManagement", object);
+}
+
+// get existing category and priority data.
+export const getCategory = (id) => {
+  const categories = getCategoryList();
+
+  return categories.find((category) => category.id == id);
+}
+
+export const getPriority = (id) => {
+  const priorities = getItem("appData").data.priorities;
+
+  return priorities.find((priority) => priority.id == id);
+}
+
+// format/categorize date. (today/tmr/overdue)
+export const getCategorizedDate = (date) => {
+  return categorizeDate(date);
+}
+
+export const renderPage = () => {
+  notify();
+}
+ 
+// create task and save to local
 export const createTask = (taskTitle, taskDescription, taskCategory, taskDate, taskPriority) => {
   const title = taskTitle.value || "";
   const description = taskDescription.value || "";
@@ -35,10 +67,10 @@ export const setTaskState = (id) => {
 
 // cancel delete
 export const cancelDelete = () => {
-  setCurrentState("taskManagement", {step: "list"});
+  setTaskManagementStep({step: "list"});
 }
 
-// delete
+// delete task 
 export const deleteTask = () => {
   const id = getTaskIdToDelete();
   const tasks = getTasks();
@@ -53,9 +85,10 @@ export const deleteTask = () => {
   }
 
   // change state
-  setCurrentState("taskManagement", {step: "list"});
+  setTaskManagementStep({step: "list"});
 }
 
+// get task array of local storage.
 export const getTaskData = (id) => {
   return getTasks().find((task) => task.id === id) || null;
 }

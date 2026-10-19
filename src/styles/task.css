@@ -35,7 +35,7 @@
   border-radius: var(--radius-sm);
 }
 
-@media (min-width: 320px) {
+@media (width >= 320px) {
   .views {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   } 
@@ -134,8 +134,7 @@
 
 .form-creation section {
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  flex-flow: column wrap;
   gap: var(--space-1);
 }
 
@@ -145,7 +144,7 @@
   resize: none;
 }
 
-/* buttons form creation*/
+/* buttons form creation */
 .form-creation > .form-creation__button-container {
   display: grid;
   grid-template-columns: 100px 1fr;
@@ -200,8 +199,7 @@
 
 .task-card__props {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   align-items: center;
   column-gap: var(--space-3);
   grid-column: 2;
@@ -265,8 +263,7 @@
   display: grid;
   grid-template-columns: repeat(3, auto);
   grid-template-rows: auto auto;
-  row-gap: var(--space-3);
-  column-gap: var(--space-2);
+  gap: var(--space-3) var(--space-2);
 }
 
 .task-delete__description {
@@ -276,6 +273,7 @@
 
 .task-delete__cancel-btn {
   grid-column: 2;
+  border: var(--border-width-1) solid var(--border-light);
 }
 
 .task-delete__delete-btn {
@@ -290,10 +288,6 @@
   background-color: var(--surface-grey);
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-md);
-}
-
-.task-delete__cancel-btn {
-  border: var(--border-width-1) solid var(--border-light);
 }
 
 .task-delete .task-delete__delete-btn {

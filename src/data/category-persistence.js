@@ -1,5 +1,5 @@
 // stores
-import { getItem, setItem } from "./storage-manager.js";
+import { getItem } from "./storage-manager.js";
 
 export const categories = [
   {
@@ -34,4 +34,10 @@ export const categories = [
   }
 ];
 
+
+export const getCategoryList = () => {
+  const categoriesData = getItem("appData")?.data?.categories || categories;
+
+  return categoriesData;
+}
 

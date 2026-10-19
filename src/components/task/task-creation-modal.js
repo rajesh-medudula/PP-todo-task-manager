@@ -1,31 +1,34 @@
-
-import { notify, setCurrentState } from "../../application/application-state.js";
-// shared shell
-import { createModalShell } from "../shared/modal-shell.js";
-// category
-import { createCategorySelection } from "../category/category-selector.js";
-// date
-import { createDueDate } from "../task-organization/date-picker.js";
-// priority
-import { createPriority } from "../task-organization/priority-selector.js";
 // operations
-import { createTask } from "../../application/task.js";
+import { setTaskManagementStep, createTask } from "../../application/task.js";
+
+// components
+// modal component
+import { createModalShell } from "../shared/modal-shell.js";
+// category component
+import { createCategorySelection } from "../category/category-selector.js";
+// date component
+import { createDueDate } from "../task-organization/date-picker.js";
+// priority component
+import { createPriority } from "../task-organization/priority-selector.js";
 
 const closeModal = (overlay) => {
-  setCurrentState("taskManagement", {step: "list"});
-  
   overlay.classList.add("modal-overlay--creation--close");
+  overlay.classList.remove(
+    "modal-overlay--creation--active",
+    "modal-overlay--creation--close",
+  );
+
   setTimeout(() => {
-    overlay.classList.remove("modal-overlay--creation--active", "modal-overlay--creation--close")
+    setTaskManagementStep({ step: "list" });
   }, 200);
-}
+};
 
 export const createTaskCreationModal = () => {
   const form = document.createElement("form");
   form.className = "form-creation";
 
   form.innerHTML = "";
-  
+
   // label for title
   const labelTitle = document.createElement("label");
   labelTitle.className = "form-creation__title";
@@ -52,10 +55,11 @@ export const createTaskCreationModal = () => {
   const inputDescription = document.createElement("textarea");
   inputDescription.placeholder = "Add details (optional)";
   inputDescription.id = "form-creation-description";
-  inputDescription.className = "form-creation__description"
+  inputDescription.className = "form-creation__description";
 
   const taskFormDescriptionContainer = document.createElement("section");
-  taskFormDescriptionContainer.classList = "form-creation__description-container";
+  taskFormDescriptionContainer.classList =
+    "form-creation__description-container";
   taskFormDescriptionContainer.append(labelDescription, inputDescription);
 
   // buttons
@@ -71,7 +75,6 @@ export const createTaskCreationModal = () => {
   buttonContainer.className = "form-creation__button-container";
   buttonContainer.append(buttonCancel, buttonCreate);
 
-
   form.append(taskFormTitleContainer);
   form.append(taskFormDescriptionContainer);
   form.append(createCategorySelection());
@@ -81,25 +84,24 @@ export const createTaskCreationModal = () => {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-  })
+  });
 
   buttonCancel.addEventListener("click", () => {
     const overlay = document.querySelector(".modal-overlay--creation");
     closeModal(overlay);
-  })
-
+  });
 
   buttonCreate.addEventListener("click", () => {
     const selectedCategory = form.querySelector(".category-selection__list");
     const date = new Date();
     const selectedPriority = form.querySelector(".priority__list");
 
-   const isSuccess = createTask(
+    const isSuccess = createTask(
       inputTitle,
       inputDescription,
       selectedCategory,
       date,
-      selectedPriority
+      selectedPriority,
     );
 
     if (isSuccess) {
@@ -114,6 +116,4 @@ export const createTaskCreationModal = () => {
     onClose: closeModal,
     variant: "creation",
   });
-}
-
-
+};

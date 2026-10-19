@@ -1,19 +1,14 @@
-import { getItem } from "../../data/storage-manager.js";
+// assets
 import { getGlobalAsset } from "../../assets/svg/global.js";
-import { categorizeDate } from "../../domain/task-date-rules.js";
-import { setTaskState, getTaskData } from "../../application/task.js";
-import { notify, setCurrentState, getPriorityIcon } from "../../application/application-state.js";
-
-const categories = getItem("appData").data.categories;
-const priorities = getItem("appData").data.priorities;
-
-const getCategory = (id) => {
-  return categories.filter((category) => category.id == id)[0];
-}
-
-const getPriority = (id) => {
-  return priorities.filter((priority) => priority.id == id)[0];
-}
+// app task
+import {
+  renderPage,
+  setTaskState,
+  setTaskManagementStep,
+  getCategorizedDate,
+  getCategory,
+  getPriority,
+} from "../../application/task.js";
 
 export const createTaskCard = (task) => {
   const taskCard = document.createElement("div");
@@ -36,28 +31,24 @@ export const createTaskCard = (task) => {
   taskProps.innerHTML = `
   <span class="task-card__props-item">
     ${getGlobalAsset("calendar-icon")}
-    ${categorizeDate(task.duedate)}
+    ${getCategorizedDate(task.duedate)}
   </span>
   <span class="task-card__props-item task-card__props-item--category">
-    ${getCategory(task.categoryId)?.name}
+    ${getCategory(task.categoryId).name}
   </span>
   <span class="task-card__props-item">
-    ${getPriorityIcon(getPriority(task.priority)?.iconRef)}
-    ${getPriority(task.priority)?.name}
+    ${getGlobalAsset(getPriority(task.priority)?.iconRef)}
+    ${getPriority(task.priority).name}
   </span>
   `;
 
   const taskButton = document.createElement("button");
   taskButton.className = "task-card__btn";
-  taskButton.innerHTML = task.completed ? getGlobalAsset("delete-icon") : getGlobalAsset("info-icon");
- 
+  taskButton.innerHTML = task.completed
+    ? getGlobalAsset("delete-icon")
+    : getGlobalAsset("info-icon");
 
-  taskCard.append(
-    taskCheck,
-    taskTitle,
-    taskProps,
-    taskButton,
-  );
+  taskCard.append(taskCheck, taskTitle, taskProps, taskButton);
 
   // style and listeners
   if (task.completed) {
@@ -68,8 +59,8 @@ export const createTaskCard = (task) => {
       let taskCardId = event.currentTarget.closest(".task-card").id;
       taskCardId = taskCardId.replace(/-card$/, "");
 
-      setCurrentState("taskManagement", {step: "delete", currentTaskId: taskCardId});
-    })
+      setTaskManagementStep({ step: "delete", currentTaskId: taskCardId });
+    });
   }
 
   // functions
@@ -81,12 +72,12 @@ export const createTaskCard = (task) => {
     const taskCard = document.getElementById(`${taskCardId}-card`);
     const taskBtn = taskCard.querySelector(".task-card__btn");
 
-
     taskCard.classList.toggle("task-card--completed");
     taskBtn.innerHTML = getGlobalAsset("delete-icon");
 
-    notify();
+    // save tasks (appData) to local and render list.
+    renderPage();
   });
 
   return taskCard;
-}
+};

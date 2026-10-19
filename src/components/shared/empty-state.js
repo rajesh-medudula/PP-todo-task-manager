@@ -1,11 +1,13 @@
-import { setCurrentState } from "../../application/application-state.js";
+// app task
+import { setTaskManagementStep } from "../../application/task.js";
+// assets
 import { getGlobalAsset } from "../../assets/svg/global.js";
 
 // create empty state (list)
 export const createEmptyState = () => {
   const emptySection = document.createElement("section");
-  
-  emptySection.className = "empty"
+
+  emptySection.className = "empty";
 
   emptySection.innerHTML = `
   <div class="empty__wrapper">
@@ -25,19 +27,15 @@ export const createEmptyState = () => {
 
   const createBtn = emptySection.querySelector(".empty__create-btn");
 
-  
   createBtn.addEventListener("click", () => {
-    setCurrentState("taskManagement", {step: "create"});
-      
+    // enables to render task creation modal in page.
+    setTaskManagementStep({step: "create"});
+
     setTimeout(() => {
       const overlay = document.querySelector(".modal-overlay--creation");
       overlay.classList.add("modal-overlay--creation--active");
     }, 50);
   });
 
-
   return emptySection;
-}
-
-
-
+};

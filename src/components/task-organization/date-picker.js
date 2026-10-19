@@ -1,3 +1,4 @@
+// assets
 import { getGlobalAsset } from "../../assets/svg/global.js";
 
 const body = document.createElement("section");
