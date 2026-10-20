@@ -1,5 +1,5 @@
 // app data
-import { isSidebarActive } from "../../application/navigation.js";
+import { getCurrentSidebarTab, isSidebarActive, setCurrentSidebarTab } from "../../application/navigation.js";
 // assets
 import { getGlobalAsset } from "../../assets/svg/global.js";
 
@@ -43,28 +43,28 @@ export const createSideBar = () => {
   <nav class="sidebar__nav">
     <ul class="sidebar__nav-list">
       <li class="sidebar__nav-item">
-        <a class="sidebar__nav-link">
+        <button class="sidebar__nav-link" id="task-management">
           ${getGlobalAsset("list-icon")}
           <span>Task Management</span>
-        </a>
+        </button>
       </li>
       <li class="sidebar__nav-item">
-        <a class="sidebar__nav-link">
+        <button class="sidebar__nav-link" id="dashboard">
           ${getGlobalAsset("dashboard-icon")}
           <span>Dashboard</span>
-        </a>
+        </button>
       </li>
       <li class="sidebar__nav-item">
-        <a class="sidebar__nav-link">
+        <button class="sidebar__nav-link" id="preferences">
           ${getGlobalAsset("preferences-icon")}
           <span>Preferences</span>
-        </a>
+        </button>
       </li>
       <li class="sidebar__nav-item">
-        <a class="sidebar__nav-link">
+        <button class="sidebar__nav-link" id="about-app">
           ${getGlobalAsset("info-icon")}
           <span>About App</span>
-        </a>
+        </button>
       </li>
     </ul>
 
@@ -72,9 +72,27 @@ export const createSideBar = () => {
   </nav>
   `;
 
-  // sidebar toggle close btn event
-  const sidebarCloseBtn = aSide.querySelector(".sidebar__close-btn");
+  // set sidebar tab active
+const setSidebarTabActive = (element) => {
+  const id = getCurrentSidebarTab();
+  const currentTab = element.querySelector(`#${id}`);
 
+  currentTab.classList.add("sidebar__nav-link--active");
+}
+
+setSidebarTabActive(aSide);
+
+  // sidebar toggle close btn event
+  const sidebarList = aSide.querySelector(".sidebar__nav-list");
+  sidebarList.addEventListener("click", (event) => {
+    const currentTabId = event.target.id;
+    setCurrentSidebarTab(currentTabId);
+
+    setSidebarTabActive(aSide);
+  });
+
+
+  const sidebarCloseBtn = aSide.querySelector(".sidebar__close-btn");
   sidebarCloseBtn.addEventListener("click", () => {
     const sidebar = document.querySelector(".sidebar");
     const sidebarOverlay = document.querySelector(".sidebar-overlay");
@@ -84,3 +102,5 @@ export const createSideBar = () => {
 
   return aSide;
 };
+
+

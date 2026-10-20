@@ -7,6 +7,7 @@ export const defaultAppData = {
     globalState: {
       state: "onboarding",
       sidebar: false,
+      sidebarTab: "task-management",
     },
     onboarding: {
       step: "intro",

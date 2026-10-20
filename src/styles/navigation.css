@@ -39,6 +39,10 @@ header {
   stroke: var(--text-white);
 }
 
+.sidebar__nav-link--active svg {
+  stroke: var(--text-white);
+}
+
 .header__nav-item:last-child svg {
   stroke: var(--text-white);
 }
@@ -52,9 +56,9 @@ header {
   position: fixed;
   left: 0;
   visibility: hidden;
-  transform: translateX(-100%);
-  transition: 
-    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+  opacity: 0;
+  transition:   
+    opacity 0.5s,
     visibility 0s linear 0.4s;
 }
 
@@ -76,12 +80,18 @@ header {
     visibility 0s linear 0.4s;
 }
 
-.sidebar--active, .sidebar-overlay--active {
+.sidebar--active {
   visibility: visible;
   transform: translate(0);
-   transition: 
+   transition:
     transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
     visibility 0s linear 0s; 
+}
+
+.sidebar-overlay--active  {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
 .sidebar__nav {
@@ -100,7 +110,9 @@ header {
 }
 
 .sidebar__nav-link {
+  width: 100%;
   display: flex;
+  align-items: center;
   gap: var(--space-3);
   padding: var(--space-2);
   border-radius: var(--radius-lg);
@@ -110,6 +122,17 @@ header {
 .sidebar__nav-link:hover {
   background-color: var(--tab-hover);
 }
+
+/* hover state sidebar tab */
+.sidebar__nav-link--active {
+  background-color: var(--background-black);
+  color: var(--text-white);
+}
+
+.sidebar__nav-link--active:hover {
+  background-color: var(--background-black);
+}
+
 
 .sidebar__nav-app-version {
   padding: var(--space-2);
@@ -143,6 +166,7 @@ header {
   border: none;
   cursor: pointer;
 }
+
 
 
 @media (width >= 1024px) {

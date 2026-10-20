@@ -24,9 +24,7 @@ export const renderApp = () => {
   
   if (globalPage === "onboarding") {
     app.append(renderOnboarding()); 
-  }
-
-  if (globalPage === "taskManagement") {
+  } else if (globalPage === "task-management") {
     app.append(
       createHeader(),
       createSideBarOverlay(),
@@ -34,6 +32,8 @@ export const renderApp = () => {
       createTaskManagement(),
     ); 
   }
+
+
 }
 
 // render based on events

@@ -3,3 +3,4 @@ package-lock.json
 package.json
 eslint.config.mjs
 stylelint.config.js
+lint.config.mjs

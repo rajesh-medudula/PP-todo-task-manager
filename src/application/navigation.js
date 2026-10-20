@@ -2,7 +2,7 @@
 import { getItem } from "../data/storage-manager.js";
 import { getUserData } from "../data/profile-persistence.js";
 // app
-import { setCurrentPageState } from "./application-state.js";
+import { setGlobalState, setCurrentPageState, setCurrentState } from "./application-state.js";
 
 export const user = (key) => {
   const userData = getUserData();
@@ -28,6 +28,19 @@ export const setSidebarState = () => {
   }
 
   return false;
+}
+
+export const setCurrentSidebarTab = (tab) => {
+  try {
+    setCurrentState("globalState", {sidebarTab: tab});
+    setGlobalState(tab);
+  } catch (error) {
+    console.error("Sidebar_Tab_Error: Failed to set sidebar active tab", error);
+  }
+}
+
+export const getCurrentSidebarTab = () => {
+  return getItem("appData").state.globalState.sidebarTab;
 }
 
 export const isSidebarActive = () => {
