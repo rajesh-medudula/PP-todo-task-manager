@@ -12,14 +12,17 @@
   font-weight: var(--weight-medium);
 }
 
+.category-selection__item:hover {
+  background-color: var(--tab-hover);
+}
+
 .category-selection__item--active {
   background-color: var(--background-black);
   color: var(--text-white);
 }
 
-.category-selection__item:first-child {
+.category-selection__item--active:hover {
   background-color: var(--background-black);
-  color: var(--text-white);
 }
 
 .category-selection__add-btn {

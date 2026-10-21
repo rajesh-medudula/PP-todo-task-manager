@@ -16,6 +16,7 @@ export const defaultAppData = {
     },
     taskManagement: {
       step: "list",
+      currentListView: "today",
     }
   },
   data: {

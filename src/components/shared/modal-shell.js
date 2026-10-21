@@ -16,7 +16,7 @@ export const createModalShell = ({ title, content, onClose, variant }) => {
   header.className = `modal-shell__header modal-shell__header--${variant}`;
 
   // header content
-  const heading = document.createElement("h4");
+  const heading = document.createElement("h3");
   heading.classList = `modal-shell__title modal-shell__title--${variant}`;
   heading.textContent = title;
 

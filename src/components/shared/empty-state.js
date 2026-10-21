@@ -2,10 +2,12 @@
 import { setTaskManagementStep } from "../../application/task.js";
 // assets
 import { getGlobalAsset } from "../../assets/svg/global.js";
+import { getCurrentListViewId } from "../../application/task-view.js";
 
 // create empty state (list)
 export const createEmptyState = () => {
   const emptySection = document.createElement("section");
+  const currentTab = getCurrentListViewId();
 
   emptySection.className = "empty";
 
@@ -15,8 +17,8 @@ export const createEmptyState = () => {
       ${getGlobalAsset("check-icon")}
     </div>
     <div class="empty__text-content">
-     <span class="empty__title">Nothing due today</span><br>
-     <span class="empty__description">You're clear for today. Add a task to plan ahead</span>
+     <span class="empty__title">Nothing due ${currentTab}</span><br>
+     <span class="empty__description">You're clear for ${currentTab}. Add a task to plan ahead</span>
     </div>
     <button class="empty__create-btn">
       ${getGlobalAsset("plus-icon")}
@@ -29,7 +31,7 @@ export const createEmptyState = () => {
 
   createBtn.addEventListener("click", () => {
     // enables to render task creation modal in page.
-    setTaskManagementStep({step: "create"});
+    setTaskManagementStep({ step: "create" });
 
     setTimeout(() => {
       const overlay = document.querySelector(".modal-overlay--creation");

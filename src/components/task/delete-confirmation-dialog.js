@@ -9,6 +9,15 @@ import {
 // components
 import { createModalShell } from "../shared/modal-shell.js";
 
+// trim task title to prevent overflow.
+const trimTaskTitle = (title) => {
+  if (title.length > 20) {
+    return `"${title.slice(0, 20)}..." `;
+  }
+
+  return `"${title}" `;
+};
+
 // delete confirm modal component
 export const createTaskDeleteModal = (taskId) => {
   const task = getTaskData(taskId);
@@ -16,9 +25,15 @@ export const createTaskDeleteModal = (taskId) => {
   const body = document.createElement("div");
   body.className = "task-delete";
 
+  const taskTitle = document.createElement("span");
+  taskTitle.className = "task-delete__title";
+  taskTitle.textContent = trimTaskTitle(task?.title);
+
   const description = document.createElement("span");
   description.className = "task-delete__description";
-  description.textContent = `"${task?.title}" will be permanently deleted.\nThis can't be undone.`;
+
+  description.append(taskTitle);
+  description.innerHTML += `will be permanently deleted.\nThis can't be undone.`;
 
   const cancelBtn = document.createElement("button");
   cancelBtn.className = "task-delete__cancel-btn";
