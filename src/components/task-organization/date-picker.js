@@ -4,18 +4,18 @@ import { getGlobalAsset } from "../../assets/svg/global.js";
 const body = document.createElement("section");
 body.className = "dueDate";
 
-export const createDueDate = () => {
+export const createDueDate = (date) => {
   body.innerHTML = "";
-  
-  const today = new Date();
 
-  const weekday = today.toLocaleDateString("en-US", {weekday: "short"});
-  const month = today.toLocaleDateString("en-US", {month: "short"});
+  const today = date ? new Date(date) : new Date();
+
+  const weekday = today.toLocaleDateString("en-US", { weekday: "short" });
+  const month = today.toLocaleDateString("en-US", { month: "short" });
   const day = today.getDate();
 
   const formatedDate = `Today - ${weekday}, ${month} ${day}`;
 
-  // html
+  // label
   const label = document.createElement("label");
   label.className = "due-date__label";
   label.textContent = "Due date";
@@ -24,12 +24,12 @@ export const createDueDate = () => {
   const div = document.createElement("div");
   div.className = "due-date__container";
   div.id = "due-date";
-  
+
   div.innerHTML = `
     ${getGlobalAsset("calendar-icon")}
     <span class="due-date__text">${formatedDate}</span>
-  `
+  `;
 
   body.append(label, div);
   return body;
-}
+};

@@ -2,7 +2,7 @@
 import { getGlobalAsset } from "../../assets/svg/global.js";
 // app task
 import {
-  getTaskData,
+  getCurrentTask,
   deleteTask,
   cancelDelete,
 } from "../../application/task.js";
@@ -19,8 +19,8 @@ const trimTaskTitle = (title) => {
 };
 
 // delete confirm modal component
-export const createTaskDeleteModal = (taskId) => {
-  const task = getTaskData(taskId);
+export const createTaskDeleteModal = () => {
+  const task = getCurrentTask();
 
   const body = document.createElement("div");
   body.className = "task-delete";

@@ -101,6 +101,14 @@ export const createTaskCard = (task) => {
     if (task.isExpanded) {
       taskCard.classList.add("is-expanded");
     }
+
+    // edit
+    taskEditButton.addEventListener("click", (event) => {
+      let taskCardId = event.currentTarget.closest(".task-card").id;
+      taskCardId = taskCardId.replace(/-card$/, "");
+
+      setTaskManagementStep({ step: "edit", currentTaskId: taskCardId });
+    });
   }
 
   // functions

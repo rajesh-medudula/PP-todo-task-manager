@@ -1,6 +1,7 @@
 // data
 import { setItem, getItem } from "../data/storage-manager.js";
 import { categories } from "../data/category-persistence.js";
+import { priorities } from "../data/priority-persistence.js";
 
 export const defaultAppData = {
   state: {
@@ -22,21 +23,7 @@ export const defaultAppData = {
   data: {
    tasks: [],
    categories: categories,
-   priorities: [{
-      id: 1,
-      name: "High",
-      iconRef: "signal_high-icon",
-    },
-    {
-      id: 2,
-      name: "Medium",
-      iconRef: "signal_mid-icon",
-    },
-    {
-      id: 3,
-      name: "Low",
-      iconRef: "signal_low-icon",
-    }],
+   priorities: priorities,
   }
 };
 

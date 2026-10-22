@@ -27,13 +27,13 @@ const setCategoryItemActive = (element) => {
 } 
 
 // category list component.
-const createCategoryList = (categories) => {
+const createCategoryList = (categories, currentCategoryId) => {
   const list = document.createElement("div");
   list.className = "category-selection__list";
-  list.setAttribute("data-id", "2");
+  list.setAttribute("data-id", currentCategoryId);
 
   categories.forEach((category, index) => {
-    list.append(createCategoryItem(category.name, category.id, index));
+    list.append(createCategoryItem(category.name, category.id, index, currentCategoryId));
   });
 
   list.addEventListener("click", (event) => {
@@ -46,7 +46,8 @@ const createCategoryList = (categories) => {
   return list;
 };
 
-export const createCategorySelection = () => {
+// set default category id.
+export const createCategorySelection = (id = "2") => {
   // data
   const categories = getCategoryData();
 
@@ -62,7 +63,7 @@ export const createCategorySelection = () => {
   addCategoryBtn.innerHTML = `${getGlobalAsset("plus-icon")} New category`;
 
   body.append(label);
-  body.append(createCategoryList(categories));
+  body.append(createCategoryList(categories, id));
   body.append(addCategoryBtn);
 
   return body;

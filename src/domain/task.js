@@ -4,7 +4,7 @@ export const isTaskValid = (task) => {
   }
 
   return true;
-}
+};
 
 export const createTaskEntity = (taskData) => {
   return {
@@ -17,5 +17,5 @@ export const createTaskEntity = (taskData) => {
     completed: false,
     createdAT: new Date(),
     isExpanded: false,
-  }
-}
+  };
+};

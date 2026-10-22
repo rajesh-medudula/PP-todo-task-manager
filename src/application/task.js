@@ -1,5 +1,5 @@
 import { isTaskValid, createTaskEntity } from "../domain/task.js";
-import { saveTask, updateTaskState, getTaskIdToDelete} from "../data/task-persistence.js";
+import { updateTask, saveTask, updateTaskState, getCurrentTaskId} from "../data/task-persistence.js";
 import { getTasks } from "../data/task-persistence.js";
 import { getItem } from "../data/storage-manager.js";
 import { setCurrentState, notify } from "./application-state.js";
@@ -35,6 +35,16 @@ export const renderPage = () => {
   notify();
 }
  
+// get single task object of local storage.
+export const getTaskData = (id) => {
+  return getTasks().find((task) => task.id === id) || null;
+}
+
+export const getCurrentTask = () => {
+  return getTaskData(getCurrentTaskId());
+}
+
+
 // create task and save to local
 export const createTask = (taskTitle, taskDescription, taskCategory, taskDate, taskPriority) => {
   const title = taskTitle.value || "";
@@ -55,6 +65,30 @@ export const createTask = (taskTitle, taskDescription, taskCategory, taskDate, t
   return true;
 };
 
+// // edit task
+export const saveEditedTask = (id, taskTitle, taskDescription, taskCategory, taskDate, taskPriority) => {
+  const title = taskTitle.value;
+  const description = taskDescription.value;
+  const categoryId = taskCategory.dataset.id
+  const date = taskDate;
+  const priority = taskPriority.dataset.id;
+
+  const task = getTaskData(id);
+
+  task.title = title;
+  task.description = description;
+  task.categoryId = categoryId;
+  task.date = date;
+  task.priority = priority;
+
+  if (!isTaskValid(task)) {
+    return false;
+  }
+  
+  updateTask(task);
+  
+  return true;
+};
 
 // set complete
 export const setTaskState = (id) => {
@@ -81,7 +115,7 @@ export const cancelDelete = () => {
 
 // delete task 
 export const deleteTask = () => {
-  const id = getTaskIdToDelete();
+  const id = getCurrentTaskId();
   const tasks = getTasks();
   
   const taskIndex = tasks.findIndex((task) => task.id === id);
@@ -95,9 +129,4 @@ export const deleteTask = () => {
 
   // change state
   setTaskManagementStep({step: "list"});
-}
-
-// get task array of local storage.
-export const getTaskData = (id) => {
-  return getTasks().find((task) => task.id === id) || null;
 }
