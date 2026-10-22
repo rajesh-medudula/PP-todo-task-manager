@@ -16,5 +16,6 @@ export const createTaskEntity = (taskData) => {
     priority: taskData.priority,
     completed: false,
     createdAT: new Date(),
+    isExpanded: false,
   }
 }

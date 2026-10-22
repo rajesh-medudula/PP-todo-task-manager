@@ -67,13 +67,14 @@
 .tasks__create-btn {
   width: 50px;
   height: 50px;
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   margin: var(--space-4);
   color: var(--text-white);
   border-radius: var(--radius-full);
   background-color: var(--background-black);
+  z-index: 1;
 }
 
 .tasks__create-btn:hover {
@@ -175,15 +176,26 @@
   display: grid;
   gap: var(--space-1) var(--space-4);
   place-items: start;
-  grid-template-columns: 30px 1fr 30px;
-  grid-template-rows: auto auto;
+  grid-template-columns: 30px 1fr 40px;
+  grid-template-rows: auto auto 0fr;
   border: var(--border-width-1) solid var(--border-light);
   border-radius: var(--radius-md);
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.task-card.is-expanded {
+  grid-template-rows: auto auto 1fr;
 }
 
 .task-card--completed {
   color: var(--text-light);
   background-color: var(--surface-grey);
+}
+
+.task-card--completed  .task-card__edit-btn {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .task-card svg {
@@ -272,6 +284,65 @@
  background-color: var(--background-black);
 }
 
+.task-card__buttons-container {
+  width: 100%;
+  grid-column: 3;
+  grid-row: 1/3;
+  display: flex;
+  justify-content: space-between;
+  column-gap: var(--space-1);
+}
+
+.task-card__buttons-container button {
+  scale: 1;
+  transition: scale 0.2s ease;
+}
+
+.task-delete button {
+  background-color: var(--surface-grey);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.task-card__buttons-container button:hover {
+  scale: 1.2;
+}
+
+.task-card-description {
+  width: 100%;
+  background-color: var(--background-white);
+  min-height: 0;
+  margin-top: 0;
+  padding: 0;
+  border-top: 0 solid var(--border-light);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease, 
+    padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-width 0.3s ease;
+  z-index: 1;
+}
+
+.task-card.task-card.is-expanded .task-card-description {
+  grid-column: 1/-1;
+  margin-top: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border-top-width: var(--border-width-1);
+  opacity: 1;
+  visibility: visible;
+  transition: 
+    opacity 0.3s ease 0.1s, 
+    padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-width 0.3s ease;
+}
+
+.task-card-description__content {
+  margin: 0;
+  color: var(--text-light);
+}
+
 /* delete modal */
 .modal-shell--task-delete {
   width: 95%;
@@ -309,12 +380,6 @@
 
 .task-delete svg {
   width: var(--control-width-min);
-}
-
-.task-delete button {
-  background-color: var(--surface-grey);
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius-md);
 }
 
 .task-delete .task-delete__delete-btn {

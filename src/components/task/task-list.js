@@ -32,13 +32,17 @@ const createTaskBtn = () => {
 // task list
 export const createTasksList = () => {
   const allTasks = getTasks();
-
+ 
   const tasksListSection = document.createElement("section");
   tasksListSection.className = "tasks";
 
   const tasks = allTasks.filter((task) => {
     const currentTaskListView = getCurrentListViewId();
     const taskCategory = getCategorizedDate(task.duedate).toLocaleLowerCase();
+
+    if ("yesterday" === taskCategory && currentTaskListView === "overdue") {
+      return true;
+    }
 
     return currentTaskListView === taskCategory;
   });

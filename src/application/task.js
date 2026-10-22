@@ -65,6 +65,15 @@ export const setTaskState = (id) => {
   updateTaskState(tasks);
 }
 
+// set task expanded
+export const setTaskExpanded = (id) => {
+  const tasks = getTasks();
+  const task = tasks.find((task) => task.id == id);
+  task.isExpanded = !task.isExpanded;
+
+  updateTaskState(tasks);
+}
+
 // cancel delete
 export const cancelDelete = () => {
   setTaskManagementStep({step: "list"});

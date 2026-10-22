@@ -26,7 +26,7 @@ export const getItem = (key) => {
 
   try {
     return JSON.parse(rawValue);
-  } catch (error) {
+  } catch {
     console.error(`Storage Error: Failed to parse key: ${key}`)
     return rawValue;
   }

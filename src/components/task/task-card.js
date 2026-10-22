@@ -4,6 +4,7 @@ import { getGlobalAsset } from "../../assets/svg/global.js";
 import {
   renderPage,
   setTaskState,
+  setTaskExpanded,
   setTaskManagementStep,
   getCategorizedDate,
   getCategory,
@@ -13,6 +14,7 @@ import {
 export const createTaskCard = (task) => {
   const taskCard = document.createElement("div");
   taskCard.className = "task-card";
+  taskCard.ariaExpanded = task.isExpanded;
   taskCard.id = `${task.id}-card`;
 
   const taskTitle = document.createElement("label");
@@ -42,16 +44,41 @@ export const createTaskCard = (task) => {
   </span>
   `;
 
+  // actions
+  const taskEditButton = document.createElement("button");
+  taskEditButton.className = "task-card__edit-btn";
+  taskEditButton.innerHTML = getGlobalAsset("edit-icon");
+
   const taskButton = document.createElement("button");
   taskButton.className = "task-card__btn";
   taskButton.innerHTML = task.completed
     ? getGlobalAsset("delete-icon")
     : getGlobalAsset("info-icon");
 
-  taskCard.append(taskCheck, taskTitle, taskProps, taskButton);
+  const taskButtonsContainer = document.createElement("div");
+  taskButtonsContainer.className = "task-card__buttons-container";
+  taskButtonsContainer.append(taskEditButton, taskButton);
+  
+  
+  // description
+  const taskDescription = document.createElement("section");
+  taskDescription.className = "task-card-description";
+  
+  const taskDescriptionLabel = document.createElement("label");
+  taskDescriptionLabel.className = "task-card-description__label";
+  taskDescriptionLabel.textContent = "Description";
+
+  const taskDescriptionContent = document.createElement("p");
+  taskDescriptionContent.className = "task-card-description__content";
+  taskDescriptionContent.textContent = `${task.description || "No description"}`;
+
+  taskDescription.append(taskDescriptionLabel, taskDescriptionContent);
+
+  taskCard.append(taskCheck, taskTitle, taskProps, taskButtonsContainer, taskDescription);
 
   // style and listeners
   if (task.completed) {
+    // delete btn
     taskCard.classList.add("task-card--completed");
     taskCheck.checked = true;
 
@@ -61,6 +88,19 @@ export const createTaskCard = (task) => {
 
       setTaskManagementStep({ step: "delete", currentTaskId: taskCardId });
     });
+  } else {
+    // view info
+    taskButton.addEventListener("click", (event) => {
+       let taskCardId = event.currentTarget.closest(".task-card").id;
+      taskCardId = taskCardId.replace(/-card$/, "");
+
+      setTaskExpanded(taskCardId);
+      taskCard.classList.toggle("is-expanded");
+    });
+
+    if (task.isExpanded) {
+      taskCard.classList.add("is-expanded");
+    }
   }
 
   // functions

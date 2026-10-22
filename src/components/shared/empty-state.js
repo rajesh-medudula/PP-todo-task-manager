@@ -11,25 +11,42 @@ export const createEmptyState = () => {
 
   emptySection.className = "empty";
 
-  emptySection.innerHTML = `
-  <div class="empty__wrapper">
-    <div class="empty__icon-container">
-      ${getGlobalAsset("check-icon")}
-    </div>
-    <div class="empty__text-content">
-     <span class="empty__title">Nothing due ${currentTab}</span><br>
-     <span class="empty__description">You're clear for ${currentTab}. Add a task to plan ahead</span>
-    </div>
-    <button class="empty__create-btn">
-      ${getGlobalAsset("plus-icon")}
-      Create Task
-    </button>
-  </div>
-  `;
+  // wrapper
+  const emptyWrapper = document.createElement("div");
+  emptyWrapper.className = "empty__wrapper";
+  
+  // icon.
+  const iconContainer = document.createElement("div");
+  iconContainer.className = "empty__icon-container";
+  iconContainer.innerHTML = getGlobalAsset("check-icon");
 
-  const createBtn = emptySection.querySelector(".empty__create-btn");
+  // text content.
+  const textContent = document.createElement("div");
+  textContent.className = "empty__text-content";
+  
+  if (currentTab === "overdue") {
+    textContent.innerHTML = `
+    <span class="empty__title">Nothing ${currentTab}</span><br>
+    `
+  } else {
+    textContent.innerHTML = `
+    <span class="empty__title">Nothing due ${currentTab}</span><br>
+    <span class="empty__description">You're clear for ${currentTab}. Add a task to plan ahead</span>
+    `
+  }
+  // create task button.
+  const createTaskBtn = document.createElement("button");
+  createTaskBtn.className = "empty__create-btn";
+  createTaskBtn.innerHTML = `${getGlobalAsset("plus-icon")}Create Task`;
 
-  createBtn.addEventListener("click", () => {
+  emptyWrapper.append(iconContainer, textContent);
+  if (currentTab !== "overdue") {
+  emptyWrapper.append(createTaskBtn);
+  }
+
+  emptySection.append(emptyWrapper);
+
+  createTaskBtn.addEventListener("click", () => {
     // enables to render task creation modal in page.
     setTaskManagementStep({ step: "create" });
 

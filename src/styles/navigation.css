@@ -168,7 +168,6 @@ header {
 }
 
 
-
 @media (width >= 1024px) {
   header {
    z-index: 1000; 
