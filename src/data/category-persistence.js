@@ -4,14 +4,14 @@ import { getItem } from "./storage-manager.js";
 export const categories = [
   {
     id: 1,
-    name: "Work",
-    color: "#2B7FFF",
+    name: "Personal",
+    color: "#E0407E",
     canDelete: false,
   },
   {
     id: 2,
-    name: "Personal",
-    color: "#E0407E",
+    name: "Work",
+    color: "#2B7FFF",
     canDelete: false,
   },
   {

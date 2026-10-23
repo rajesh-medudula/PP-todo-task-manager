@@ -30,6 +30,8 @@ export const setSidebarState = () => {
   return false;
 }
 
+// setCurrentState("globalState", {sidebarTab: "task-management"});
+
 export const setCurrentSidebarTab = (tab) => {
   try {
     setCurrentState("globalState", {sidebarTab: tab});
@@ -43,6 +45,6 @@ export const getCurrentSidebarTab = () => {
   return getItem("appData").state.globalState.sidebarTab;
 }
 
-export const isSidebarActive = () => {
+export const getSidebarState = () => {
   return getItem("appData").state.globalState.sidebar;
 }

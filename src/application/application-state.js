@@ -13,18 +13,18 @@ export const defaultAppData = {
     onboarding: {
       step: "intro",
       avatarSelected: null,
-      nickname: ""
+      nickname: "",
     },
     taskManagement: {
       step: "list",
       currentListView: "today",
-    }
+    },
   },
   data: {
-   tasks: [],
-   categories: categories,
-   priorities: priorities,
-  }
+    tasks: [],
+    categories: categories,
+    priorities: priorities,
+  },
 };
 
 export let appData = getItem("appData") || defaultAppData;
@@ -38,7 +38,7 @@ export const subscribe = (listener) => {
 
 // run app.js render functions
 export const notify = () => {
-  listeners.forEach(listener => listener());
+  listeners.forEach((listener) => listener());
 };
 
 // set current page state no render manual render
@@ -46,7 +46,7 @@ export const setCurrentPageState = (page, state) => {
   const appData = getItem("appData");
   if (!appData.state[page]) appData.state[page] = {};
 
-  appData["state"][page] = {...appData["state"][page], ...state};
+  appData["state"][page] = { ...appData["state"][page], ...state };
   setItem("appData", appData);
 };
 
@@ -69,5 +69,3 @@ export const setGlobalState = (page) => {
 if (!localStorage.getItem("appData")) {
   setItem("appData", appData);
 }
-
-console.log(appData)

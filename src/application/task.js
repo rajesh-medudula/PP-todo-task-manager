@@ -6,7 +6,7 @@ import { setCurrentState, notify } from "./application-state.js";
 
 
 import { getCategoryList } from "../data/category-persistence.js";
-import { categorizeDate } from "../domain/task-date-rules.js";
+import { categorizeDate, isDateOverdue } from "../domain/task-date-rules.js";
 
 // set taskManagement step
 export const setTaskManagementStep = (object) => {
@@ -26,11 +26,16 @@ export const getPriority = (id) => {
   return priorities.find((priority) => priority.id == id);
 }
 
-// format/categorize date. (today/tmr/overdue)
+// format/categorize date. (today/tmr/yesterday/upcoming,overdue)
 export const getCategorizedDate = (date) => {
   return categorizeDate(date);
 }
 
+export const isTaskOverdue = (date) => {
+  return isDateOverdue(date);
+}
+
+// render whole page
 export const renderPage = () => {
   notify();
 }
@@ -106,6 +111,8 @@ export const setTaskExpanded = (id) => {
   task.isExpanded = !task.isExpanded;
 
   updateTaskState(tasks);
+
+  return task.isExpanded;
 }
 
 // cancel delete

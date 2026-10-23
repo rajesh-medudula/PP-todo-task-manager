@@ -1,9 +1,12 @@
-
 // date categorize
 export const categorizeDate = (targetDate) => {
   // Parse target date and enforce local midnight time to match today/yesterday/tomorrow
-  const parsedDate = new Date(targetDate);
-  const userDate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate());
+  const parsedDate = targetDate ? new Date(targetDate) : new Date();
+  const userDate = new Date(
+    parsedDate.getFullYear(),
+    parsedDate.getMonth(),
+    parsedDate.getDate(),
+  );
 
   // Get today's local midnight
   const now = new Date();
@@ -20,4 +23,10 @@ export const categorizeDate = (targetDate) => {
   if (diffDays === 1) return "Tomorrow";
   if (diffDays > 1) return "Upcoming";
   return "Overdue";
+};
+
+export const isDateOverdue = (targetDate) => {
+  const categorizedDate = categorizeDate(targetDate);
+
+  return categorizedDate === "Yesterday" || categorizedDate === "Overdue";
 };

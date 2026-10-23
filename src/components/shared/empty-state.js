@@ -58,3 +58,24 @@ export const createEmptyState = () => {
 
   return emptySection;
 };
+
+
+
+export const createComingSoonState = () => {
+  const upcoming = document.createElement("section");
+  upcoming.className = "upcoming";
+
+  // icon
+  const iconContainer = document.createElement("div");
+  iconContainer.className = "upcoming__icon-container";
+  iconContainer.innerHTML = getGlobalAsset("construction-icon");
+
+  // text content.
+  const textContent = document.createElement("div");
+  textContent.className = "upcoming__text-content";
+  textContent.textContent = "Coming Soon!";
+
+  upcoming.append(iconContainer, textContent);
+
+  return upcoming;
+}

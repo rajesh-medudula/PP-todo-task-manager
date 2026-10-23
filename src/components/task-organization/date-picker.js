@@ -1,5 +1,6 @@
 // assets
 import { getGlobalAsset } from "../../assets/svg/global.js";
+import { getCategorizedDate } from "../../application/task.js";
 
 const body = document.createElement("section");
 body.className = "dueDate";
@@ -13,10 +14,10 @@ export const createDueDate = (date) => {
   const month = today.toLocaleDateString("en-US", { month: "short" });
   const day = today.getDate();
 
-  const formatedDate = `Today - ${weekday}, ${month} ${day}`;
+  const formatedDate = `${getCategorizedDate(date)} - ${weekday}, ${month} ${day}`;
 
   // label
-  const label = document.createElement("label");
+  const label = document.createElement("span");
   label.className = "due-date__label";
   label.textContent = "Due date";
   label.setAttribute("for", "due-date");

@@ -10,19 +10,20 @@ import { createViewSelection } from "../components/task/task-view-selector.js";
 import { createTaskCreationModal } from "../components/task/task-creation-modal.js";
 import { createTaskDeleteModal } from "../components/task/delete-confirmation-dialog.js";
 import { createTaskEditModal } from "../components/task/task-edit-panel.js";
-
-const taskManagement = document.createElement("main");
-
-taskManagement.className = "main-content";
-taskManagement.classList.add("task-management");
-
-// main width adjust based on sidebar
-const isSidebarActive = getItem("appData")?.state?.globalState?.sidebar;
-isSidebarActive
-  ? taskManagement.classList.add("main-content--sidebar-active")
-  : null;
+import { getSidebarState } from "../application/navigation.js";
 
 export const createTaskManagement = () => {
+  const taskManagement = document.createElement("main");
+
+  taskManagement.className = "main-content";
+  taskManagement.classList.add("task-management");
+
+  // main width adjust based on sidebar
+  const isSidebarActive = getSidebarState();
+  isSidebarActive
+    ? taskManagement.classList.add("main-content--sidebar-active")
+    : null;
+
   taskManagement.innerHTML = "";
   const currentTaskManagementState =
     getItem("appData").state.taskManagement.step;

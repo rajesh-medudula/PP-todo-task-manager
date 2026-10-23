@@ -45,8 +45,12 @@ export const createHeader = () => {
 // toggle sidebar.
 export const toggleSidebar = (sidebar, sidebarOverlay) => {
   if (sidebar && sidebarOverlay) {
-    sidebar.classList.toggle("sidebar--active");
     sidebarOverlay.classList.toggle("sidebar-overlay--active");
+    sidebar.classList.toggle("sidebar--active");
+
+    // setTimeout(() => {
+    //   sidebar.classList.toggle("sidebar--active");
+    // }, 70);
 
     const mainContent = document.querySelector(".main-content");
 

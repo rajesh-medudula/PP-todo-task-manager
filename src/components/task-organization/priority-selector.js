@@ -23,7 +23,7 @@ export const createPriority = (id = 2) => {
   const body = document.createElement("section");
   body.className = "priority";
 
-  const priorityLabel = document.createElement("label");
+  const priorityLabel = document.createElement("span");
   priorityLabel.className = "priority__label";
   priorityLabel.setAttribute("for", "priority-list");
   priorityLabel.textContent = "Priority";

@@ -4,6 +4,28 @@ import {
 } from "../../application/task-view.js";
 
 // tabs in task management
+const listViewTabs = [
+  {
+    id: "today",
+    name: "Today",
+    icon: "",
+  },
+  {
+    id: "tomorrow",
+    name: "Tomorrow",
+    icon: "",
+  },
+  {
+    id: "upcoming",
+    name: "Upcoming",
+    icon: "",
+  },
+  {
+    id: "overdue",
+    name: "Overdue",
+    icon: "",
+  }
+]
 
 // set active tab style
 const setCurrentTabActive = (element) => {
@@ -17,34 +39,29 @@ const setCurrentTabActive = (element) => {
   }
 };
 
+// creates tab.
+const createTabBtn = (tab) => {
+  const button = document.createElement("button");
+  button.className = "views__btn";
+  button.id = tab.id;
+  
+  button.textContent = tab.name;
+
+  button.addEventListener("click", (event) => {
+    setCurrentListViewId(event.currentTarget.id);
+  })
+  return button;
+}
+
+// tabs component.
 export const createViewSelection = () => {
   const viewNav = document.createElement("nav");
-
   viewNav.className = "views";
 
-  viewNav.innerHTML = `
-  <button class="views__btn views__btn--today" id="today">
-  <span>Today</span>
-  </button>
-  <button class="views__btn views__btn--tmr" id="tomorrow">
-  <span>Tomorrow</span>
-  </button>
-  <button class="views__btn views__btn--upcoming" id="upcoming">
-  <span>Upcoming</span>
-  </button>
-  <button class="views__btn views__btn--overdue" id="overdue">
-  <span>Overdue</span>
-  </button>
-  `;
-
-  viewNav.addEventListener("click", (event) => {
-    const tabName = event.target.id;
-
-    setCurrentListViewId(tabName);
-    setCurrentTabActive(viewNav);
-  });
+  listViewTabs.forEach((tab) => {
+    viewNav.append(createTabBtn(tab));
+  })
 
   setCurrentTabActive(viewNav);
-
   return viewNav;
 };

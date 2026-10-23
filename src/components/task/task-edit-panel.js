@@ -1,6 +1,7 @@
+// data
+import { getCurrentTask } from "../../application/task.js";
 // operations
 import { setTaskManagementStep, saveEditedTask } from "../../application/task.js";
-
 // components
 // modal component
 import { createModalShell } from "../shared/modal-shell.js";
@@ -10,8 +11,6 @@ import { createCategorySelection } from "../category/category-selector.js";
 import { createDueDate } from "../task-organization/date-picker.js";
 // priority component
 import { createPriority } from "../task-organization/priority-selector.js";
-
-import { getCurrentTask } from "../../application/task.js";
 
 const closeModal = (overlay) => {
   overlay.classList.add("modal-overlay--creation--close");

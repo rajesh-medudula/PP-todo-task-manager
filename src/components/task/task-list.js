@@ -3,7 +3,7 @@ import { setCurrentState } from "../../application/application-state.js";
 // assets
 import { getGlobalAsset } from "../../assets/svg/global.js";
 // empty state
-import { createEmptyState } from "../shared/empty-state.js";
+import { createEmptyState, createComingSoonState } from "../shared/empty-state.js";
 
 import { getTasks } from "../../data/task-persistence.js";
 import { createTaskCard } from "./task-card.js";
@@ -36,6 +36,8 @@ export const createTasksList = () => {
   const tasksListSection = document.createElement("section");
   tasksListSection.className = "tasks";
 
+  tasksListSection.innerHTML = "";
+
   const tasks = allTasks.filter((task) => {
     const currentTaskListView = getCurrentListViewId();
     const taskCategory = getCategorizedDate(task.duedate).toLocaleLowerCase();
@@ -48,8 +50,15 @@ export const createTasksList = () => {
   });
 
   if (tasks.length < 1) {
-    tasksListSection.append(createEmptyState());
+    const currentTaskListView = getCurrentListViewId();
+
+    if (currentTaskListView !== "today" && currentTaskListView !== "overdue") {
+      tasksListSection.append(createComingSoonState());
+    } else {
+      tasksListSection.append(createEmptyState());
+    }
   } else {
+
     tasks.forEach((task) => {
       tasksListSection.append(createTaskCard(task));
     });
