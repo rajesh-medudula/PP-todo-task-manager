@@ -80,6 +80,7 @@ export const createSidebar = () => {
   // sidebar logo
   const sidebarLogoContainer = document.createElement("div");
   sidebarLogoContainer.className = "sidebar__logo-container";
+  
   const sidebarLogo = document.createElement("span");
   sidebarLogo.className = "sidebar__logo";
   sidebarLogo.innerHTML = `${getGlobalAsset("logo")} Todo Task Manager`;
@@ -93,18 +94,25 @@ export const createSidebar = () => {
   // sidebar nav
   const sidebarNav = document.createElement("sidebar__nav");
   sidebarNav.className = "sidebar__nav";
+  
   const sidebarList = document.createElement("ul");
   sidebarList.className = "sidebar__nav-list";
   // appends all items to sidebar list.
   sidebarItems.forEach((item) => {
     sidebarList.append(createSidebarNavBtn(item, aSide));
   });
-  // append components.
-  sidebarNav.append(sidebarList);
 
+  // append components.
+  sidebarNav.append(sidebarList, );
+
+
+  //app version
+  const appVersion = document.createElement("span");
+  appVersion.className = "sidebar__version";
+  appVersion.textContent = "V_1.0";
 
   // append to sidebar.
-  aSide.append(sidebarLogoContainer, sidebarNav);
+  aSide.append(sidebarLogoContainer, sidebarNav, appVersion);
   overlay.append(aSide);
 
   // styles and operations.
