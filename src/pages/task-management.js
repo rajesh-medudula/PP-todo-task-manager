@@ -4,13 +4,28 @@ import { getItem } from "../data/storage-manager.js";
 // user data
 import { getUserData } from "../data/profile-persistence.js";
 
+// state
+import { getSidebarState } from "../application/navigation.js";
+
 // components
 import { createTasksList } from "../components/task/task-list.js";
 import { createViewSelection } from "../components/task/task-view-selector.js";
 import { createTaskCreationModal } from "../components/task/task-creation-modal.js";
 import { createTaskDeleteModal } from "../components/task/delete-confirmation-dialog.js";
 import { createTaskEditModal } from "../components/task/task-edit-panel.js";
-import { getSidebarState } from "../application/navigation.js";
+
+// greet user
+const createGreet = () => {
+  const section = document.createElement("section");
+
+  section.className = "user-greet user-greet--task-management";
+
+  section.innerHTML = `
+    <span class="user-greet__name">What's up, ${getUserData()?.nickname}</span>
+  `;
+
+  return section;
+};
 
 export const createTaskManagement = () => {
   const taskManagement = document.createElement("main");
@@ -40,17 +55,4 @@ export const createTaskManagement = () => {
   }
 
   return taskManagement;
-};
-
-// greet user
-const createGreet = () => {
-  const section = document.createElement("section");
-
-  section.className = "user-greet user-greet--task-management";
-
-  section.innerHTML = `
-    <span class="user-greet__name">What's up, ${getUserData()?.nickname}</span>
-  `;
-
-  return section;
 };

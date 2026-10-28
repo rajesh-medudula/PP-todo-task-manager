@@ -1,8 +1,18 @@
 // data
 import { getCurrentTask } from "../../application/task.js";
+
 // operations
-import { setTaskManagementStep, saveEditedTask } from "../../application/task.js";
+import {
+  setTaskManagementStep,
+  saveEditedTask,
+  getTempTask,
+  updateTempTask,
+  removeTempTask,
+  createTempTask,
+} from "../../application/task.js";
+
 // components
+
 // modal component
 import { createModalShell } from "../shared/modal-shell.js";
 // category component
@@ -22,18 +32,38 @@ const closeModal = (overlay) => {
   setTimeout(() => {
     setTaskManagementStep({ step: "list" });
   }, 200);
+
+  removeTempTask();
 };
 
-
-
 export const createTaskEditModal = () => {
+  // load from local on refresh.
   setTimeout(() => {
-      const overlay = document.querySelector(".modal-overlay--creation");
-      overlay.classList.add("modal-overlay--creation--active");
-    }, 50);
+    const overlay = document.querySelector(".modal-overlay--creation");
+    overlay.classList.add("modal-overlay--creation--active");
+  }, 0);
 
+  // initialize temp task if not exist
+  if (!getTempTask()) {
+    createTempTask();
+  }
+
+  const tempTask = getTempTask();
+
+  // current task data.
   const task = getCurrentTask();
-  console.log(task)
+
+  if (tempTask.isNew) {
+    tempTask.title = task.title;
+    tempTask.description = task.description;
+    tempTask.duedate = task.duedate;
+    tempTask.categoryId = task.categoryId;
+    tempTask.priority = task.priority;
+    tempTask.isNew = false;
+
+    updateTempTask(tempTask);
+  }
+
   const form = document.createElement("form");
   form.className = "form-creation";
 
@@ -51,7 +81,7 @@ export const createTaskEditModal = () => {
   inputTitle.required = true;
   inputTitle.id = "form-creation-title";
   inputTitle.className = "form-creation__input";
-  inputTitle.value = task.title;
+  inputTitle.value = tempTask.title;
 
   const taskFormTitleContainer = document.createElement("section");
   taskFormTitleContainer.classList = "form-creation__title-container";
@@ -67,7 +97,7 @@ export const createTaskEditModal = () => {
   inputDescription.placeholder = "Add details (optional)";
   inputDescription.id = "form-creation-description";
   inputDescription.className = "form-creation__description";
-  inputDescription.textContent = task.description;
+  inputDescription.textContent = tempTask.description;
 
   const taskFormDescriptionContainer = document.createElement("section");
   taskFormDescriptionContainer.classList =
@@ -89,10 +119,21 @@ export const createTaskEditModal = () => {
 
   form.append(taskFormTitleContainer);
   form.append(taskFormDescriptionContainer);
-  form.append(createCategorySelection(task.categoryId));
-  form.append(createDueDate(task.duedate));
-  form.append(createPriority(task.priority));
+  form.append(createCategorySelection(tempTask.categoryId));
+  form.append(createDueDate(tempTask.duedate));
+  form.append(createPriority(tempTask.priority));
   form.append(buttonContainer);
+
+  // title and description listeners
+  inputTitle.addEventListener("input", (event) => {
+    tempTask.title = event.currentTarget.value;
+    updateTempTask(tempTask);
+  });
+
+  inputDescription.addEventListener("input", (event) => {
+    tempTask.description = event.currentTarget.value;
+    updateTempTask(tempTask);
+  });
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -130,5 +171,3 @@ export const createTaskEditModal = () => {
     variant: "creation",
   });
 };
-
-// { title, content, onClose, variant }

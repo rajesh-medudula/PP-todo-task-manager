@@ -1,6 +1,6 @@
 import { isTaskValid, createTaskEntity } from "../domain/task.js";
 import { updateTask, saveTask, updateTaskState, getCurrentTaskId} from "../data/task-persistence.js";
-import { getTasks } from "../data/task-persistence.js";
+import { getTasks, getTempTaskData, initializeTempTask, deleteTempTask, saveTempTask} from "../data/task-persistence.js";
 import { getItem } from "../data/storage-manager.js";
 import { setCurrentState, notify } from "./application-state.js";
 
@@ -136,4 +136,35 @@ export const deleteTask = () => {
 
   // change state
   setTaskManagementStep({step: "list"});
+}
+
+// temp task operations.
+
+// get temp task
+export const getTempTask = () => {
+  const tempTask = getTempTaskData();
+  
+  if (tempTask) {
+    return tempTask;
+  } else {
+    return false;
+  }
+};
+
+// create temp task
+export const createTempTask = () => {
+  initializeTempTask();
+  return true;
+};
+
+// delete temp task
+export const removeTempTask = () => {
+  deleteTempTask();
+  return true;
+};
+
+// update/save temp task.
+export const updateTempTask = (task) => {
+  saveTempTask(task);
+  return true;
 }

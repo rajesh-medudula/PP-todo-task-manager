@@ -1,6 +1,42 @@
 // storage.
 import { getItem, setItem } from "./storage-manager.js";
 
+// create temp task.
+const tempTask = {
+  title: "",
+  description: "",
+  categoryId: 1,
+  duedate: "",
+  priority: 2,
+  isNew: true,
+};
+
+export const initializeTempTask = () => {
+  const appData = getItem("appData");
+
+  appData.data.tempTask = tempTask;
+  setItem("appData", appData);
+};
+
+export const getTempTaskData = () => {
+  return getItem("appData")?.data?.tempTask;
+};
+
+// delete temp task.
+export const deleteTempTask = () => {
+  const appData = getItem("appData");
+
+  delete appData.data.tempTask;
+  setItem("appData", appData);
+};
+
+export const saveTempTask = (task) => {
+  const appData = getItem("appData");
+
+  appData.data.tempTask = task;
+  setItem("appData", appData);
+};
+
 // get tasks from local.
 export const getTasks = () => {
   return getItem("appData").data.tasks || [];

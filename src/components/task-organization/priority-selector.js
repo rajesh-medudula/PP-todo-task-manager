@@ -2,6 +2,9 @@
 import { getGlobalAsset } from "../../assets/svg/global.js";
 import { priorityData } from "../../application/priority.js";
 
+// task app.
+import { getTempTask, updateTempTask } from "../../application/task.js";
+
 // set selected priority active.
 const setPriorityActive = (element) => {
   const allPriorityElements = element.querySelectorAll(".priority__item");
@@ -18,6 +21,9 @@ const setPriorityActive = (element) => {
 };
 
 export const createPriority = (id = 2) => {
+  const tempTask = getTempTask();
+  const currentId = tempTask ? tempTask.priority : id;
+
   const priorities = priorityData();
 
   const body = document.createElement("section");
@@ -30,7 +36,7 @@ export const createPriority = (id = 2) => {
 
   const priorityList = document.createElement("ul");
   priorityList.className = "priority__list";
-   priorityList.setAttribute("data-id", id);
+  priorityList.setAttribute("data-id", currentId);
 
   priorities.forEach((priority) => {
     const button = document.createElement("button");
@@ -38,36 +44,24 @@ export const createPriority = (id = 2) => {
     button.setAttribute("data-id", priority.id);
     button.innerHTML = `${getGlobalAsset(priority.iconRef)} ${priority.name}`;
 
-    if (priority.id == id) {
+    if (priority.id == currentId) {
       button.classList.add("priority__item--active");
-    } 
+    }
+
+    button.addEventListener("click", (event) => {
+      const priority = event.currentTarget.dataset.id;
+      const tempTask = getTempTask();
+
+      if (tempTask) {
+        tempTask.priority = priority;
+        updateTempTask(tempTask);
+      }
+    });
 
     priorityList.append(button);
   });
 
   body.append(priorityLabel, priorityList);
-
-
-  // body.innerHTML = `
-  // <label class="priority__label" for="priority-list">Priority</label>
-  // <div class="priority__list" id="priority-list">
-  //   <button class="priority__item" data-id="1">
-  //     ${getGlobalAsset("signal_high-icon")}
-  //     High
-  //   </button>
-  //   <button class="priority__item priority__item--active" data-id="2">
-  //     ${getGlobalAsset("signal_mid-icon")}
-  //     Medium
-  //   </button>
-  //   <button class="priority__item" data-id="3">
-  //     ${getGlobalAsset("signal_low-icon")}
-  //     Low
-  //   </button>
-  // </div>
-  // `;
-
-  
- 
 
   setPriorityActive(priorityList);
 

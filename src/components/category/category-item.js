@@ -1,3 +1,4 @@
+import { getTempTask, updateTempTask } from "../../application/task.js";
 
 // creates category list items.
 export const createCategoryItem = (item, categoryId, id) => {
@@ -10,5 +11,15 @@ export const createCategoryItem = (item, categoryId, id) => {
   button.setAttribute("data-id", categoryId);
   button.innerHTML = `${item}`;
 
+  button.addEventListener("click", (event) => {
+    const categoryId = event.currentTarget.dataset.id;
+    const tempTask = getTempTask();
+
+    if (tempTask) {
+      tempTask.categoryId = categoryId;
+      updateTempTask(tempTask);
+    }
+  });
+
   return button;
-}
+};

@@ -3,9 +3,9 @@ import { createModalShell } from "../shared/modal-shell.js";
 
 // creates category management modal.
 export const createCategoryManagement = () => {
-  const body = document.createElement("div");
+  const body = document.createElement("section");
   body.className = "category-Management";
-  
+
   body.innerHTML = `
   <div class="category-management__text-container">
     <label class="category-management__title" for="category-input">Name</label>
@@ -20,7 +20,7 @@ export const createCategoryManagement = () => {
   return createModalShell({
     title: "New Category",
     content: body,
-    onClose: '',
-    variant: "category-management"
+    onClose: "",
+    variant: "category-management",
   });
-}
+};
