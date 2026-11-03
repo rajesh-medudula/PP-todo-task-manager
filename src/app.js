@@ -15,6 +15,7 @@ import { createPreferences } from "./pages/preferences.js";
 import { createAboutApp } from "./pages/about-app.js";
 
 // from index.html
+import "./styles/main.css"
 const app = document.querySelector("#app");
 
 // render function
