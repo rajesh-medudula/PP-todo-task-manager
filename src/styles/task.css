@@ -153,7 +153,6 @@
 
 /* inputs form creation */
 .form-creation__description {
-  min-height: 100px;
   resize: none;
 }
 
