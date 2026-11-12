@@ -16,14 +16,18 @@
   --text-black: #111;
   --text-white: #FFF;
   --text-light: #525252;
+  --text-inactive: #ada6a6;
   --success: #16A34A;
   --error: #DC2626;
   --warning: #D97706;
+  --blue: rgb(074, 74, 255);
+  --indicate: rgb(138, 83, 194);
   --border-black: #111;
   --border-white: #FFF;
   --border-light: #d6d6d8;
   --button-hover: #757575;
   --tab-hover: #dbdbdd;
+  --button-inactive: #eeeeee;
   --tab-active: #111;
 
   /* shadows */
@@ -95,6 +99,7 @@ body {
   position: relative;
 }
 
+
 .main-content {
   display: flex;
   flex-direction: column;
@@ -104,6 +109,14 @@ body {
   margin-top: var(--header-height);
   padding: var(--space-2);
   position: relative;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 }
 
 
@@ -172,13 +185,13 @@ svg {
 }
 
 @media (width >= 1024px) {
-  .main-content {
+  .wrapper {
     margin-left: var(--sidebar-width-collapsed);
     width: calc(100% - var(--sidebar-width-collapsed));
   }
 
-  .main-content--sidebar-active {
+  .wrapper--sidebar-active {
     margin-left: var(--sidebar-width-expanded);
-    width: calc(100% - var(--sidebar-width-expandedd));
+    width: calc(100% - var(--sidebar-width-expanded));
   }
 }

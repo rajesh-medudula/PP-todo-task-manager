@@ -55,10 +55,10 @@ export const createTask = (taskTitle, taskDescription, taskCategory, taskDate, t
   const title = taskTitle.value || "";
   const description = taskDescription.value || "";
   const categoryId = taskCategory.dataset.id
-  const date = taskDate;
+  const duedate = taskDate;
   const priority = taskPriority.dataset.id;
 
-  const task = {title, description, categoryId, date, priority};
+  const task = {title, description, categoryId, duedate, priority};
 
   if (!isTaskValid(task)) {
     return false;
@@ -75,7 +75,7 @@ export const saveEditedTask = (id, taskTitle, taskDescription, taskCategory, tas
   const title = taskTitle.value;
   const description = taskDescription.value;
   const categoryId = taskCategory.dataset.id
-  const date = taskDate;
+  const duedate = taskDate;
   const priority = taskPriority.dataset.id;
 
   const task = getTaskData(id);
@@ -83,7 +83,7 @@ export const saveEditedTask = (id, taskTitle, taskDescription, taskCategory, tas
   task.title = title;
   task.description = description;
   task.categoryId = categoryId;
-  task.date = date;
+  task.duedate = duedate;
   task.priority = priority;
 
   if (!isTaskValid(task)) {

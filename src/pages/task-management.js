@@ -14,6 +14,7 @@ import { createTaskCreationModal } from "../components/task/task-creation-modal.
 import { createTaskDeleteModal } from "../components/task/delete-confirmation-dialog.js";
 import { createTaskEditModal } from "../components/task/task-edit-panel.js";
 
+
 // greet user
 const createGreet = () => {
   const section = document.createElement("section");
@@ -33,19 +34,25 @@ export const createTaskManagement = () => {
   taskManagement.className = "main-content";
   taskManagement.classList.add("task-management");
 
+    const wrapper = document.createElement("div");
+  wrapper.className = "wrapper";
+
   // main width adjust based on sidebar
   const isSidebarActive = getSidebarState();
   isSidebarActive
-    ? taskManagement.classList.add("main-content--sidebar-active")
+    ? wrapper.classList.add("wrapper--sidebar-active")
     : null;
 
   taskManagement.innerHTML = "";
   const currentTaskManagementState =
     getItem("appData").state.taskManagement.step;
 
-  taskManagement.append(createGreet());
-  taskManagement.append(createViewSelection());
-  taskManagement.append(createTasksList());
+  wrapper.append(createGreet());
+  wrapper.append(createViewSelection());
+  wrapper.append(createTasksList());
+  
+  taskManagement.append(wrapper);
+  
   if (currentTaskManagementState === "create") {
     taskManagement.append(createTaskCreationModal());
   } else if (currentTaskManagementState === "edit") {

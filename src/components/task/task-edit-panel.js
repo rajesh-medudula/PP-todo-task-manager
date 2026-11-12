@@ -11,6 +11,8 @@ import {
   createTempTask,
 } from "../../application/task.js";
 
+import { getISODate } from "../../application/date-picker.js";
+
 // components
 
 // modal component
@@ -146,15 +148,18 @@ export const createTaskEditModal = () => {
 
   buttonSave.addEventListener("click", () => {
     const selectedCategory = form.querySelector(".category-selection__list");
-    const date = new Date(task.date);
+    const dateEle = form.querySelector(".due-date__date-container");
     const selectedPriority = form.querySelector(".priority__list");
+
+    const dateStr = dateEle.dataset.date;
+    const duedate = getISODate(dateStr);
 
     const isSuccess = saveEditedTask(
       task.id,
       inputTitle,
       inputDescription,
       selectedCategory,
-      date,
+      duedate,
       selectedPriority,
     );
 

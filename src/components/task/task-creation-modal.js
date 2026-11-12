@@ -19,6 +19,7 @@ import { createCategorySelection } from "../category/category-selector.js";
 import { createDueDate } from "../task-organization/date-picker.js";
 // priority component
 import { createPriority } from "../task-organization/priority-selector.js";
+import { getISODate } from "../../application/date-picker.js";
 
 const closeModal = (overlay) => {
   overlay.classList.add("modal-overlay--creation--close");
@@ -130,14 +131,17 @@ export const createTaskCreationModal = () => {
 
   buttonCreate.addEventListener("click", () => {
     const selectedCategory = form.querySelector(".category-selection__list");
-    const date = new Date();
+    const dateEle = form.querySelector(".due-date__date-container");
     const selectedPriority = form.querySelector(".priority__list");
+    
+    const dateStr = dateEle.dataset.date;
+    const duedate = getISODate(dateStr);
 
     const isSuccess = createTask(
       inputTitle,
       inputDescription,
       selectedCategory,
-      date,
+      duedate,
       selectedPriority,
     );
 

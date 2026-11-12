@@ -12,10 +12,10 @@ export const createTaskEntity = (taskData) => {
     title: taskData.title,
     description: taskData.description,
     categoryId: taskData.categoryId,
-    duedate: taskData.date,
+    duedate: taskData.duedate,
     priority: taskData.priority,
     completed: false,
-    createdAT: new Date(),
+    createdAT: new Date().toISOString(),
     isExpanded: false,
   };
 };

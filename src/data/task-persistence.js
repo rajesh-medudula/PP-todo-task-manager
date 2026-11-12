@@ -6,7 +6,7 @@ const tempTask = {
   title: "",
   description: "",
   categoryId: 1,
-  duedate: "",
+  duedate: new Date().toISOString(),
   priority: 2,
   isNew: true,
 };

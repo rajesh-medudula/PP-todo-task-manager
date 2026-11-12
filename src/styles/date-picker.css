@@ -1,0 +1,101 @@
+/* due date */
+.due-date__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border: var(--border-width-1) solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.due-date__date-container {
+  margin-right: auto;
+}
+
+.due-date__date-container > svg {
+  width: var(--control-width-min);
+}
+
+.date-section {
+  width: 100%;
+  min-height: 50px;
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+  border: var(--border-width-1) solid var(--border-black);
+}
+
+.month-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-1);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.month-container__month {
+  font-weight: var(--weight-semibold);
+}
+
+.days {
+  display: grid;
+  gap: var(--space-1);
+  grid-template-columns: repeat(7, minmax(20px, 1fr));
+}
+
+.day {
+  display: inline;
+  text-align: center;
+  font-weight: var(--weight-semibold);
+  border-radius: var(--radius-md);
+  padding: var(--space-1);
+  position: relative;
+}
+
+.dates {
+  display: grid;
+  gap: var(--space-1);
+  grid-template-columns: repeat(7, minmax(20px, 1fr));
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.date {
+  display: inline;
+  border: var(--border-width-1) solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-1);
+  position: relative;
+}
+
+.date.inactive {
+  background-color: var(--button-inactive);
+  color: var(--text-inactive);
+  pointer-events: none;
+}
+
+/* .date.active.today {
+  border-width: var(--border-width);
+  border-color: var(--blue);
+} */
+
+
+.date.active.today::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background-color: var(--indicate);
+  border-radius: var(--radius-full);
+  margin-left: 1px;
+  position: absolute;
+}
+
+.date.active:focus {
+  color: var(--text-white);
+  background-color: var(--background-black);
+}
+
+/* .date.active.today {
+  color: var(--text-white);
+  background-color: var(--text-black);
+} */

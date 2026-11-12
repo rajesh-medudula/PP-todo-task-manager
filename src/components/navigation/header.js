@@ -52,10 +52,10 @@ export const toggleSidebar = (sidebar, sidebarOverlay) => {
     //   sidebar.classList.toggle("sidebar--active");
     // }, 70);
 
-    const mainContent = document.querySelector(".main-content");
+    const wrapper = document.querySelector(".wrapper");
 
-    if (mainContent) {
-      mainContent.classList.toggle("main-content--sidebar-active");
+    if (wrapper) {
+      wrapper.classList.toggle("wrapper--sidebar-active");
     }
   }
 

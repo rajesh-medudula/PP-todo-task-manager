@@ -65,8 +65,9 @@
   align-items: flex-end;
   justify-content: center;
   background-color: rgb(0 0 0 / 61%);
-  z-index: 998;
+  z-index: 9999;
 }
+
 
 .modal-shell {
   display: flex;
@@ -100,7 +101,6 @@
 
 
 /* upcoming shared */
-
 
 .upcoming {
   margin: auto;
